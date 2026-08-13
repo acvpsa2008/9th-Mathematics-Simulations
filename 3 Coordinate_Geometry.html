@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Coordinate Geometry • Class 9 NCERT</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100vw;height:100vh;background:#0b0f19;color:#f1f5f9;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;overflow:hidden;display:flex;justify-content:center;align-items:center;touch-action:manipulation}
+.viewport-wrapper{width:100vw;height:100vh;display:flex;justify-content:center;align-items:center;background:radial-gradient(circle at 25% 15%,#1e293b 0%,#0f172a 65%)}
+.simulation-container{width:100vw;height:56.25vw;max-height:100vh;max-width:177.78vh;position:relative;box-shadow:0 25px 50px -12px rgba(0,0,0,.75);display:flex;flex-direction:column;overflow:hidden;background:#0f172a;border-radius:12px;border:1px solid rgba(255,255,255,.12)}
+.simulation-container:fullscreen,.simulation-container:-webkit-full-screen{width:100vw;height:100vh;max-width:none;max-height:none;border-radius:0;border:none}
+.glass{background:rgba(30,41,59,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.14)}
+::-webkit-scrollbar{width:7px;height:7px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(249,115,22,.6);border-radius:4px}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.fade{animation:fadeIn .25s ease-out forwards}
+.flex{display:flex}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.justify-between{justify-content:space-between}.justify-center{justify-content:center}
+.gap-1{gap:.25rem}.gap-2{gap:.5rem}.gap-3{gap:.7rem}
+.w-full{width:100%}.h-full{height:100%}.flex-1{flex:1 1 0%}.flex-shrink-0{flex-shrink:0}
+.overflow-y-auto{overflow-y:auto}.overflow-hidden{overflow:hidden}.relative{position:relative}
+h2{font-size:1.45rem;font-weight:800;color:#fb923c;margin-bottom:.1rem;letter-spacing:-.02em}
+.sub{font-size:1.08rem;color:#94a3b8;margin-bottom:.4rem;line-height:1.4}
+label{font-size:1rem;font-weight:700;color:#e2e8f0;display:block;margin-bottom:.15rem}
+.text-lg{font-size:1.22rem}.text-base{font-size:1.12rem}.text-sm{font-size:1.02rem}.text-xs{font-size:.9rem}
+.font-mono{font-family:ui-monospace,Menlo,Consolas,monospace}.font-bold{font-weight:700}.font-black{font-weight:900}
+.orange{color:#fb923c}.amber{color:#fbbf24}.green{color:#4ade80}.red{color:#f87171}.blue{color:#60a5fa}.slate{color:#94a3b8}.white{color:#f8fafc}.emerald{color:#34d399}
+.input{background:#0f172a;border:2px solid #475569;color:#fff;border-radius:.5rem;padding:.48rem .6rem;font-size:1.18rem;font-weight:700;outline:none;width:88px;text-align:center}
+.input:focus{border-color:#f97316;box-shadow:0 0 0 3px rgba(249,115,22,.3)}
+.btn{cursor:pointer;border:none;border-radius:.5rem;font-weight:700;font-size:1rem;padding:.48rem .95rem;transition:all .12s;touch-action:manipulation}
+.btn-orange{background:#ea580c;color:#fff}.btn-orange:hover{background:#f97316}
+.btn-dark{background:#1e293b;color:#e2e8f0;border:1px solid #475569}.btn-dark:hover{background:#334155}
+.btn-emerald{background:#059669;color:#fff}.btn-emerald:hover{background:#10b981}
+.btn-sm{padding:.36rem .7rem;font-size:.92rem}
+.tab-bar{display:flex;overflow-x:auto;gap:.28rem;padding:.35rem .55rem;background:#0f172a;border-bottom:1px solid rgba(255,255,255,.1);flex-shrink:0}
+.tab{display:flex;align-items:center;gap:.25rem;padding:.45rem .72rem;border-radius:.5rem;font-size:.88rem;font-weight:700;cursor:pointer;border:none;white-space:nowrap;transition:all .12s;background:transparent;color:#94a3b8}
+.tab:hover{background:#1e293b;color:#e2e8f0}
+.tab.on{background:#ea580c;color:#fff;box-shadow:0 3px 12px rgba(234,88,12,.45)}
+.card{background:rgba(30,41,59,.95);border:1px solid rgba(255,255,255,.12);border-radius:.85rem;padding:.75rem 1rem;display:flex;flex-direction:column}
+.row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:flex-end;margin-bottom:.4rem}
+.result-box{background:#0f172a;border:1px solid #475569;border-radius:.65rem;padding:.65rem .85rem;font-size:1.08rem;line-height:1.45}
+.tip{margin-top:.3rem;padding:.55rem .85rem;background:rgba(251,191,36,.16);border-left:5px solid #fbbf24;border-radius:0 .5rem .5rem 0;font-size:1.05rem;color:#f1f5f9;line-height:1.4}
+.tip-blue{margin-top:.3rem;padding:.55rem .85rem;background:rgba(96,165,250,.16);border-left:5px solid #60a5fa;border-radius:0 .5rem .5rem 0;font-size:1.05rem;color:#f1f5f9;line-height:1.4}
+.tip-green{margin-top:.3rem;padding:.55rem .85rem;background:rgba(52,211,153,.16);border-left:5px solid #34d399;border-radius:0 .5rem .5rem 0;font-size:1.05rem;color:#f1f5f9;line-height:1.4}
+.badge{display:inline-block;background:rgba(249,115,22,.3);color:#fb923c;padding:.18rem .6rem;border-radius:999px;font-size:.95rem;font-weight:800}
+.quiz-opt{width:100%;text-align:left;padding:.6rem .85rem;border-radius:.6rem;border:2px solid #334155;background:#1e293b;color:#f1f5f9;font-size:1.08rem;font-weight:600;cursor:pointer;transition:all .12s;margin-bottom:.3rem;display:flex;align-items:center;gap:.55rem}
+.quiz-opt:hover{border-color:#f97316;background:rgba(249,115,22,.15)}
+.quiz-opt.correct{background:rgba(16,185,129,.28);border-color:#34d399;color:#d1fae5}
+.quiz-opt.wrong{background:rgba(239,68,68,.22);border-color:#f87171;color:#fecaca}
+.quiz-opt.disabled{pointer-events:none;opacity:.65}
+.math{font-family:Georgia,'Times New Roman',serif;font-size:1.28rem;font-weight:600;color:#fbbf24}
+.def-card{background:rgba(15,23,42,.9);border:1px solid #334155;border-radius:.6rem;padding:.55rem .75rem;margin:.2rem 0}
+.def-card .title{font-size:1.02rem;font-weight:800;color:#fbbf24;margin-bottom:.12rem}
+.def-card .body{font-size:1.05rem;color:#e2e8f0;line-height:1.4}
+.space-y-2>*+*{margin-top:.4rem}
+
+.dash-hero{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}
+@media(max-width:700px){.dash-hero{grid-template-columns:1fr}}
+.dash-stat{background:linear-gradient(145deg,rgba(30,41,59,.95),rgba(15,23,42,.98));border:1px solid rgba(249,115,22,.4);border-radius:.6rem;padding:.65rem .8rem}
+.dash-stat-label{font-size:.9rem;font-weight:800;color:#fb923c;text-transform:uppercase;letter-spacing:.04em}
+.dash-stat-value{font-size:1.6rem;font-weight:900;color:#f8fafc}
+.dash-bar{height:10px;background:#1e293b;border-radius:999px;margin-top:.35rem;overflow:hidden;border:1px solid #334155}
+.dash-bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#ea580c,#fbbf24,#4ade80);transition:width .35s}
+.dash-item{display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.45rem .6rem;margin-bottom:.22rem;background:rgba(15,23,42,.9);border:1px solid #475569;border-radius:.5rem;cursor:pointer}
+.dash-item:hover{border-color:#f97316}
+.dash-item.done{border-color:rgba(74,222,128,.5);background:rgba(74,222,128,.1)}
+.tip-wrap{position:relative;display:inline-flex;align-items:center}
+.tip-bubble{position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1e293b;color:#f1f5f9;border:1px solid #f97316;border-radius:8px;padding:6px 10px;font-size:.85rem;font-weight:600;max-width:240px;opacity:0;pointer-events:none;transition:opacity .15s;z-index:50;box-shadow:0 8px 18px rgba(0,0,0,.45)}
+.tip-wrap:hover .tip-bubble{opacity:1}
+.tip-icon{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:rgba(249,115,22,.3);color:#fb923c;font-size:.72rem;font-weight:900;cursor:help;margin-left:4px;border:1px solid rgba(249,115,22,.55)}
+.formula-box{background:linear-gradient(135deg,rgba(249,115,22,.18),rgba(251,191,36,.12));border:1px solid rgba(249,115,22,.45);border-radius:.65rem;padding:.7rem .95rem;font-size:1.08rem;line-height:1.5;margin:.35rem 0}
+
+</style>
+</head>
+<body>
+<div id="root" class="viewport-wrapper"></div>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+const { useState, useMemo, useEffect, useRef, useCallback } = React;
+
+class SoundEngine {
+  constructor(){ this.ctx=null; this.muted=false; }
+  init(){ if(!this.ctx) this.ctx=new (window.AudioContext||window.webkitAudioContext)(); if(this.ctx.state==='suspended') this.ctx.resume(); }
+  setMuted(v){ this.muted=v; }
+  playClick(){ if(this.muted)return; this.init(); try{ const o=this.ctx.createOscillator(),g=this.ctx.createGain(); o.type='sine'; o.frequency.setValueAtTime(620,this.ctx.currentTime); o.frequency.exponentialRampToValueAtTime(400,this.ctx.currentTime+.05); g.gain.setValueAtTime(.12,this.ctx.currentTime); g.gain.exponentialRampToValueAtTime(.001,this.ctx.currentTime+.05); o.connect(g); g.connect(this.ctx.destination); o.start(); o.stop(this.ctx.currentTime+.05);}catch(e){} }
+  playSuccess(){ if(this.muted)return; this.init(); try{ const now=this.ctx.currentTime; [523.25,659.25,783.99].forEach((f,i)=>{ const o=this.ctx.createOscillator(),g=this.ctx.createGain(); o.type='sine'; o.frequency.setValueAtTime(f,now+i*.1); g.gain.setValueAtTime(.15,now+i*.1); g.gain.exponentialRampToValueAtTime(.001,now+i*.1+.25); o.connect(g); g.connect(this.ctx.destination); o.start(now+i*.1); o.stop(now+i*.1+.25); }); }catch(e){} }
+}
+
+const sound = new SoundEngine();
+
+function Tip({ text }) {
+  return (<span className="tip-wrap"><span className="tip-icon" tabIndex={0}>?</span><span className="tip-bubble" role="tooltip">{text}</span></span>);
+}
+
+function ProgressDash({ visited, quizBest, quizAttempts, onGoTab }) {
+  const topics = [
+    {id:'overview', name:'Overview', goal:'Cartesian plane & coordinates'},
+    {id:'why', name:'Why Two Numbers?', goal:'One number is not enough in a plane'},
+    {id:'cartesian', name:'Cartesian System', goal:'Axes, origin, abscissa, ordinate'},
+    {id:'plot', name:'Plot Points', goal:'Locate (x, y) on the grid'},
+    {id:'quadrants', name:'Quadrants', goal:'I (+,+), II (−,+), III (−,−), IV (+,−)'},
+    {id:'axes', name:'Points on Axes', goal:'(x,0) on x-axis; (0,y) on y-axis'},
+    {id:'practice', name:'Practice', goal:'Worked exercises'},
+    {id:'quiz', name:'Quiz', goal:'Score 8+ out of 10'},
+    {id:'summary', name:'Summary', goal:'Key facts at a glance'},
+    {id:'board', name:'Board', goal:'Scratch work'},
+  ];
+  const total = topics.length;
+  const visitedCount = topics.filter(t => visited[t.id]).length;
+  const pct = Math.round(visitedCount / total * 100);
+  const stars = quizBest >= 8 ? 3 : quizBest >= 6 ? 2 : quizBest >= 4 ? 1 : 0;
+  return (
+    <div className="card h-full overflow-y-auto space-y-2">
+      <h2>📊 Progress Dashboard <Tip text="Visit each topic and take the quiz. Best score is saved here." /></h2>
+      <p className="sub">NCERT Class 9 · Chapter 3 · Coordinate Geometry</p>
+      <div className="dash-hero">
+        <div className="dash-stat">
+          <div className="dash-stat-label">Exploration</div>
+          <div className="dash-stat-value"><span className="green">{visitedCount}</span><span style={{color:'#64748b',fontSize:'1rem'}}>/{total}</span></div>
+          <div className="dash-bar"><div className="dash-bar-fill" style={{width:pct+'%'}}/></div>
+          <div className="text-sm slate">{pct}% complete</div>
+        </div>
+        <div className="dash-stat">
+          <div className="dash-stat-label">Quiz best</div>
+          <div className="dash-stat-value"><span className="green">{quizBest}</span><span style={{color:'#64748b',fontSize:'1rem'}}>/10</span></div>
+          <div className="text-sm slate">{quizAttempts} attempts · {'⭐'.repeat(stars)||'☆'}</div>
+        </div>
+      </div>
+      <div className="result-box" style={{marginTop:6}}>
+        {topics.map(t => (
+          <div key={t.id} className={'dash-item '+(visited[t.id]?'done':'')} onClick={()=>{sound.playClick();onGoTab(t.id);}}>
+            <div>
+              <div className="font-bold" style={{color:'#f8fafc'}}>{t.name}</div>
+              <div className="text-sm slate">{t.goal}</div>
+            </div>
+            <span>{visited[t.id]?'✅':'⬜'}</span>
+          </div>
+        ))}
+      </div>
+      <div className="tip-blue"><strong className="blue">Goal:</strong> Explore all topics and score ≥ 8/10 on the quiz.</div>
+      <div className="formula-box">Key: (x, y) · Origin (0,0) · Abscissa = x · Ordinate = y · Q I (+,+) · Q II (−,+) · Q III (−,−) · Q IV (+,−)</div>
+    </div>
+  );
+}
+
+
+function quadrantOf(x,y){
+  if(x===0&&y===0) return 'Origin';
+  if(x===0) return 'y-axis';
+  if(y===0) return 'x-axis';
+  if(x>0&&y>0) return 'I';
+  if(x<0&&y>0) return 'II';
+  if(x<0&&y<0) return 'III';
+  return 'IV';
+}
+
+/* ===== Large interactive Cartesian Grid ===== */
+function CoordGrid({points=[], onPlot, range=6, size=440, showGuides=true, highlight=null, showQuadLabels=false, interactive=true}){
+  const pad=32;
+  const plot=size-2*pad;
+  const scale=plot/(2*range);
+  const toX=x=>pad+(x+range)*scale;
+  const toY=y=>pad+(range-y)*scale;
+  const fromXY=(px,py)=>{
+    const x=Math.round((px-pad)/scale-range);
+    const y=Math.round(range-(py-pad)/scale);
+    return {x:Math.max(-range,Math.min(range,x)), y:Math.max(-range,Math.min(range,y))};
+  };
+  const handleClick=e=>{
+    if(!onPlot||!interactive) return;
+    const rect=e.currentTarget.getBoundingClientRect();
+    const px=(e.clientX-rect.left)*(size/rect.width);
+    const py=(e.clientY-rect.top)*(size/rect.height);
+    const p=fromXY(px,py);
+    sound.playClick();
+    onPlot(p);
+  };
+  const ticks=Array.from({length:2*range+1},(_,i)=>i-range);
+  return (
+    <svg width={size} height={size} onClick={handleClick} style={{cursor:onPlot&&interactive?'crosshair':'default',background:'#0b1220',borderRadius:10,border:'1px solid #334155',boxShadow:'inset 0 0 40px rgba(0,0,0,.35)'}}>
+      {/* quadrant fills */}
+      <rect x={toX(0)} y={toY(range)} width={toX(range)-toX(0)} height={toY(0)-toY(range)} fill="rgba(74,222,128,.07)"/>
+      <rect x={toX(-range)} y={toY(range)} width={toX(0)-toX(-range)} height={toY(0)-toY(range)} fill="rgba(96,165,250,.07)"/>
+      <rect x={toX(-range)} y={toY(0)} width={toX(0)-toX(-range)} height={toY(-range)-toY(0)} fill="rgba(244,114,182,.07)"/>
+      <rect x={toX(0)} y={toY(0)} width={toX(range)-toX(0)} height={toY(-range)-toY(0)} fill="rgba(251,191,36,.07)"/>
+      {/* grid lines */}
+      {ticks.map(t=>(
+        <g key={'g'+t}>
+          <line x1={toX(t)} y1={toY(-range)} x2={toX(t)} y2={toY(range)} stroke={t===0?'transparent':'#1e293b'} strokeWidth="1"/>
+          <line x1={toX(-range)} y1={toY(t)} x2={toX(range)} y2={toY(t)} stroke={t===0?'transparent':'#1e293b'} strokeWidth="1"/>
+        </g>
+      ))}
+      {/* axes */}
+      <line x1={toX(-range)} y1={toY(0)} x2={toX(range)} y2={toY(0)} stroke="#f97316" strokeWidth="2.8"/>
+      <line x1={toX(0)} y1={toY(-range)} x2={toX(0)} y2={toY(range)} stroke="#f97316" strokeWidth="2.8"/>
+      {/* arrows */}
+      <polygon points={`${toX(range)},${toY(0)} ${toX(range)-10},${toY(0)-6} ${toX(range)-10},${toY(0)+6}`} fill="#f97316"/>
+      <polygon points={`${toX(0)},${toY(range)} ${toX(0)-6},${toY(range)+10} ${toX(0)+6},${toY(range)+10}`} fill="#f97316"/>
+      <text x={toX(range)-6} y={toY(0)+18} fill="#fb923c" fontSize="13" fontWeight="800">X</text>
+      <text x={toX(0)+10} y={toY(range)+14} fill="#fb923c" fontSize="13" fontWeight="800">Y</text>
+      <text x={toX(0)+8} y={toY(0)+16} fill="#94a3b8" fontSize="12" fontWeight="700">O</text>
+      {ticks.filter(t=>t!==0).map(t=>(
+        <g key={'t'+t}>
+          <text x={toX(t)} y={toY(0)+15} fill="#64748b" fontSize="11" textAnchor="middle">{t}</text>
+          <text x={toX(0)-11} y={toY(t)+4} fill="#64748b" fontSize="11" textAnchor="end">{t}</text>
+        </g>
+      ))}
+      {showQuadLabels && (
+        <g fontSize="13" fontWeight="800" opacity="0.55">
+          <text x={toX(range*0.45)} y={toY(range*0.55)} fill="#4ade80">I (+,+)</text>
+          <text x={toX(-range*0.75)} y={toY(range*0.55)} fill="#60a5fa">II (−,+)</text>
+          <text x={toX(-range*0.75)} y={toY(-range*0.45)} fill="#f472b6">III (−,−)</text>
+          <text x={toX(range*0.4)} y={toY(-range*0.45)} fill="#fbbf24">IV (+,−)</text>
+        </g>
+      )}
+      {highlight && showGuides && (
+        <g>
+          <line x1={toX(highlight.x)} y1={toY(0)} x2={toX(highlight.x)} y2={toY(highlight.y)} stroke="#34d399" strokeWidth="2" strokeDasharray="5 4"/>
+          <line x1={toX(0)} y1={toY(highlight.y)} x2={toX(highlight.x)} y2={toY(highlight.y)} stroke="#60a5fa" strokeWidth="2" strokeDasharray="5 4"/>
+          <circle cx={toX(highlight.x)} cy={toY(0)} r="3.5" fill="#34d399"/>
+          <circle cx={toX(0)} cy={toY(highlight.y)} r="3.5" fill="#60a5fa"/>
+        </g>
+      )}
+      {points.map((p,i)=>(
+        <g key={i}>
+          <circle cx={toX(p.x)} cy={toY(p.y)} r="8" fill={p.color||'#f97316'} stroke="#fff" strokeWidth="2"/>
+          {p.label && (
+            <text x={toX(p.x)+11} y={toY(p.y)-9} fill="#e2e8f0" fontSize="13" fontWeight="800">
+              {p.label}{p.showCoord!==false?` (${p.x}, ${p.y})`:''}
+            </text>
+          )}
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+function OverviewTab(){
+  return (
+    <div className="card h-full overflow-y-auto space-y-2">
+      <h2>Coordinate Geometry</h2>
+      <p className="sub">Locate any point in a plane using two perpendicular number lines — the Cartesian system of René Descartes.</p>
+      <div style={{display:'grid',gridTemplateColumns:'1.1fr 1fr',gap:'.6rem',alignItems:'start'}}>
+        <CoordGrid range={5} size={420} showQuadLabels interactive={false}
+          points={[
+            {x:3,y:2,label:'P',color:'#f97316'},
+            {x:-4,y:3,label:'Q',color:'#60a5fa'},
+            {x:-2,y:-3,label:'R',color:'#f472b6'},
+            {x:4,y:-2,label:'S',color:'#fbbf24'},
+          ]}/>
+        <div className="space-y-2">
+          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'.45rem'}}>
+            <div className="result-box text-center"><div className="text-2xl font-black orange">(x, y)</div><div className="text-sm slate">Coordinates</div></div>
+            <div className="result-box text-center"><div className="text-2xl font-black amber">4</div><div className="text-sm slate">Quadrants</div></div>
+            <div className="result-box text-center"><div className="text-2xl font-black emerald">O</div><div className="text-sm slate">Origin (0,0)</div></div>
+            <div className="result-box text-center"><div className="text-2xl font-black blue">x, y</div><div className="text-sm slate">Axes</div></div>
+          </div>
+          <div className="def-card"><div className="title">What you will master</div>
+            <div className="body">
+              • Why two numbers fix a point in a plane<br/>
+              • Cartesian plane: axes & origin<br/>
+              • Plotting & reading coordinates<br/>
+              • Signs in each quadrant<br/>
+              • Points on the axes
+            </div>
+          </div>
+          <div className="tip"><strong className="amber">History:</strong> René Descartes (1596–1650) invented this system — a development of latitude & longitude. Called the <em>Cartesian system</em> in his honour.</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function WhyTwoTab(){
+  const [street,setStreet]=useState(2);
+  const [house,setHouse]=useState(5);
+  // mini street grid figure
+  const cols=8, rows=5;
+  return (
+    <div className="card h-full overflow-y-auto space-y-2">
+      <h2>Why Two Numbers?</h2>
+      <p className="sub">One number is not enough. Street + house, or distance from two edges, uniquely fix a location.</p>
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'.6rem'}}>
+        <div className="result-box">
+          <div className="text-base font-bold orange mb-1">Street & House (Fig. 3.1 style)</div>
+          <div className="row">
+            <div><label>Street</label><input type="number" min="1" max="8" value={street} onChange={e=>{setStreet(Math.min(8,Math.max(1,+e.target.value||1)));sound.playClick()}} className="input"/></div>
+            <div><label>House</label><input type="number" min="1" max="5" value={house} onChange={e=>{setHouse(Math.min(5,Math.max(1,+e.target.value||1)));sound.playClick()}} className="input"/></div>
+          </div>
+          <div className="math">Location → ({street}, {house})</div>
+          {/* street grid figure */}
+          <div style={{marginTop:10,display:'inline-grid',gridTemplateColumns:`repeat(${cols},28px)`,gap:3}}>
+            {Array.from({length:rows*cols},(_,i)=>{
+              const c=(i%cols)+1, r=rows-Math.floor(i/cols);
+              const on=c===street&&r===house;
+              return <div key={i} style={{width:28,height:28,borderRadius:4,background:on?'#ea580c':'#1e293b',border:'1px solid #475569',display:'flex',alignItems:'center',justifyContent:'center',fontSize:10,fontWeight:800,color:on?'#fff':'#64748b'}}>{on?'H':''}</div>;
+            })}
+          </div>
+          <div className="text-xs slate mt-1">Columns = streets · Rows = house numbers · H = your house</div>
+        </div>
+        <div className="result-box">
+          <div className="text-base font-bold amber mb-1">Dot on paper (Fig. 3.2)</div>
+          <p className="text-sm slate mb-2">“Near the left edge” is vague. Two distances fix the point.</p>
+          <svg width="220" height="160" style={{background:'#0f172a',borderRadius:8,border:'1px solid #334155'}}>
+            <rect x="20" y="20" width="180" height="120" fill="none" stroke="#475569" strokeWidth="2"/>
+            <line x1="20" y1="140" x2="100" y2="140" stroke="#60a5fa" strokeWidth="2" strokeDasharray="4 3"/>
+            <line x1="100" y1="140" x2="100" y2="50" stroke="#34d399" strokeWidth="2" strokeDasharray="4 3"/>
+            <circle cx="100" cy="50" r="6" fill="#f97316"/>
+            <text x="55" y="155" fill="#60a5fa" fontSize="11" fontWeight="700">5 cm</text>
+            <text x="108" y="100" fill="#34d399" fontSize="11" fontWeight="700">9 cm</text>
+            <text x="108" y="45" fill="#e2e8f0" fontSize="12" fontWeight="700">•</text>
+          </svg>
+          <div className="tip-green mt-2"><strong className="emerald">Rule:</strong> Two perpendicular distances uniquely determine a point in a plane.</div>
+        </div>
+      </div>
+      <div className="def-card"><div className="title">Seating Plan (Activity 1)</div><div className="body">Column + Row → position like S(4, 1). Order matters: (5, 3) ≠ (3, 5).</div></div>
+      <div className="tip-blue"><strong className="blue">Ordered pair:</strong> Always write (x, y) — first number for horizontal reference, second for vertical.</div>
+    </div>
+  );
+}
+
+function CartesianTab(){
+  return (
+    <div className="card h-full overflow-y-auto space-y-2">
+      <h2>Cartesian System</h2>
+      <p className="sub">Two perpendicular number lines cross at the origin O to form the coordinate plane (Fig. 3.8).</p>
+      <div style={{display:'grid',gridTemplateColumns:'auto 1fr',gap:'.7rem',alignItems:'start'}}>
+        <CoordGrid range={5} size={440} showQuadLabels interactive={false}/>
+        <div className="space-y-2">
+          <div className="def-card"><div className="title">x-axis (horizontal)</div><div className="body">Number line X′OX. Positive direction OX (right), negative OX′ (left).</div></div>
+          <div className="def-card"><div className="title">y-axis (vertical)</div><div className="body">Number line Y′OY. Positive direction OY (up), negative OY′ (down).</div></div>
+          <div className="def-card"><div className="title">Origin O</div><div className="body">Intersection of the axes. Coordinates of O are <strong className="orange">(0, 0)</strong>.</div></div>
+          <div className="def-card"><div className="title">Coordinate axes</div><div className="body">Together, the x-axis and y-axis. The plane is the Cartesian / coordinate / xy-plane.</div></div>
+          <div className="tip"><strong className="amber">Fig. 3.9:</strong> Axes divide the plane into four quadrants numbered I, II, III, IV anticlockwise from OX.</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PlotTab(){
+  const [x,setX]=useState(3);
+  const [y,setY]=useState(2);
+  const [pts,setPts]=useState([
+    {x:3,y:2,label:'A',color:'#f97316'},
+  ]);
+  const [showGuide,setShowGuide]=useState(true);
+  const GRID=480;
+  const q=quadrantOf(x,y);
+  const addPoint=()=>{
+    sound.playClick();
+    const colors=['#f97316','#34d399','#60a5fa','#fbbf24','#f472b6','#a78bfa'];
+    setPts(prev=>[...prev,{x,y,label:String.fromCharCode(65+prev.length),color:colors[prev.length%colors.length]}]);
+  };
+  const onPlot=p=>{ setX(p.x); setY(p.y); const colors=['#f97316','#34d399','#60a5fa','#fbbf24','#f472b6','#a78bfa']; setPts(prev=>[...prev,{...p,label:String.fromCharCode(65+prev.length),color:colors[prev.length%colors.length]}]); };
+  const presets=[{x:4,y:3},{x:-3,y:2},{x:-4,y:-3},{x:2,y:-4},{x:0,y:3},{x:-5,y:0}];
+  return (
+    <div className="card h-full overflow-y-auto space-y-2">
+      <h2>Plotting Points</h2>
+      <p className="sub">Enter coordinates or click the grid. Dashed guides show abscissa & ordinate (Fig. 3.10 style).</p>
+      <div className="row">
+        <div><label>x (abscissa)</label><input type="number" min="-6" max="6" value={x} onChange={e=>{setX(+e.target.value);sound.playClick()}} className="input"/></div>
+        <div><label>y (ordinate)</label><input type="number" min="-6" max="6" value={y} onChange={e=>{setY(+e.target.value);sound.playClick()}} className="input"/></div>
+        <button className="btn btn-orange btn-sm" onClick={addPoint}>Plot ({x}, {y})</button>
+        <button className="btn btn-dark btn-sm" onClick={()=>{setPts([]);sound.playClick()}}>Clear</button>
+        <button className={`btn btn-sm ${showGuide?'btn-emerald':'btn-dark'}`} onClick={()=>{setShowGuide(!showGuide);sound.playClick()}}>{showGuide?'Guides ON':'Guides OFF'}</button>
+        <span className="badge">Quadrant: {q}</span>
+      </div>
+      <div className="row" style={{marginTop:0}}>
+        <span className="text-sm font-bold slate">Quick:</span>
+        {presets.map(p=>(
+          <button key={p.x+','+p.y} className="btn btn-dark btn-sm" onClick={()=>{setX(p.x);setY(p.y);sound.playClick()}}>({p.x}, {p.y})</button>
+        ))}
+      </div>
+      <div style={{display:'grid',gridTemplateColumns:'auto 1fr',gap:'.7rem',alignItems:'start'}}>
+        <CoordGrid points={pts} onPlot={onPlot} highlight={showGuide?{x,y}:null} showGuides={showGuide} range={6} size={GRID}/>
+        <div className="space-y-2">
+          <div className="result-box">
+            <div className="math">P = ({x}, {y})</div>
+            <div className="text-sm mt-1">Abscissa (x) = <strong className="orange">{x}</strong> — distance from y-axis</div>
+            <div className="text-sm">Ordinate (y) = <strong className="blue">{y}</strong> — distance from x-axis</div>
+            <div className="text-sm mt-1">Lies in: <strong className="emerald">{q}</strong></div>
+          </div>
+          <div className="def-card"><div className="title">Convention</div><div className="body">Always write <strong>(x, y)</strong> — abscissa first, then ordinate. (3, 4) ≠ (4, 3).</div></div>
+          <div className="def-card"><div className="title">How to plot</div><div className="body">1. Move |x| units from O along x-axis (right if +, left if −).<br/>2. From there move |y| units parallel to y-axis (up if +, down if −).<br/>3. Mark the point.</div></div>
+          <div className="tip"><strong className="amber">Click</strong> anywhere on the grid to plot · Toggle guides to see perpendicular distances.</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function QuadrantsTab(){
+  const samples=[
+    {x:3,y:4,q:'I',sign:'(+, +)',c:'#4ade80'},
+    {x:-3,y:4,q:'II',sign:'(−, +)',c:'#60a5fa'},
+    {x:-3,y:-4,q:'III',sign:'(−, −)',c:'#f472b6'},
+    {x:3,y:-4,q:'IV',sign:'(+, −)',c:'#fbbf24'},
+  ];
+  const [sel,setSel]=useState(null);
+  return (
+    <div className="card h-full overflow-y-auto space-y-2">
+      <h2>Quadrants & Signs</h2>
+      <p className="sub">The axes divide the plane into four quadrants, numbered anticlockwise from OX (Fig. 3.13).</p>
+      <div style={{display:'grid',gridTemplateColumns:'auto 1fr',gap:'.7rem'}}>
+        <CoordGrid
+          points={samples.map(s=>({x:s.x,y:s.y,label:s.q,color:s.c,showCoord:true}))}
+          range={5} size={440} showQuadLabels
+          highlight={sel} showGuides={!!sel}
+          onPlot={p=>{setSel(p);sound.playClick();}}
+        />
+        <div className="space-y-2">
+          {samples.map(s=>(
+            <button key={s.q} className="result-box w-full text-left" style={{borderColor:s.c+'88',cursor:'pointer'}}
+              onClick={()=>{setSel({x:s.x,y:s.y});sound.playClick();}}>
+              <strong style={{color:s.c}}>Quadrant {s.q}</strong> — form {s.sign}
+              <div className="text-sm slate">Example: ({s.x}, {s.y}) · Click to highlight</div>
+            </button>
+          ))}
+          <div className="def-card"><div className="title">Remember</div><div className="body">I (+,+) · II (−,+) · III (−,−) · IV (+,−). Numbered anticlockwise from the positive x-axis.</div></div>
+          <div className="tip-blue"><strong className="blue">Try:</strong> Click a quadrant card or the grid to see guides for that point.</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AxesTab(){
+  const axisPts=[
+    {x:4,y:0,label:'A',color:'#f97316'},
+    {x:0,y:3,label:'B',color:'#34d399'},
+    {x:-5,y:0,label:'C',color:'#60a5fa'},
+    {x:0,y:-4,label:'D',color:'#fbbf24'},
+    {x:0,y:0,label:'O',color:'#e2e8f0'},
+  ];
+  const [focus,setFocus]=useState(null);
+  return (
+    <div className="card h-full overflow-y-auto space-y-2">
+      <h2>Points on the Axes</h2>
+      <p className="sub">Every point on the x-axis has y = 0. Every point on the y-axis has x = 0 (Fig. 3.12).</p>
+      <div style={{display:'grid',gridTemplateColumns:'auto 1fr',gap:'.7rem'}}>
+        <CoordGrid points={axisPts} range={5} size={440} highlight={focus} showGuides={!!focus}
+          onPlot={p=>{setFocus(p);sound.playClick();}}/>
+        <div className="space-y-2">
+          <div className="def-card"><div className="title">On the x-axis</div><div className="body">Coordinates are of the form <strong className="orange">(x, 0)</strong>. Distance from x-axis is zero → ordinate = 0. Examples: A(4, 0), C(−5, 0).</div></div>
+          <div className="def-card"><div className="title">On the y-axis</div><div className="body">Coordinates are of the form <strong className="blue">(0, y)</strong>. Distance from y-axis is zero → abscissa = 0. Examples: B(0, 3), D(0, −4).</div></div>
+          <div className="def-card"><div className="title">Origin</div><div className="body">O has zero distance from both axes → <strong className="emerald">(0, 0)</strong>.</div></div>
+          <div className="result-box">
+            <div className="text-sm font-bold mb-1">Click a sample:</div>
+            <div className="flex flex-wrap gap-2">
+              {axisPts.map(p=>(
+                <button key={p.label} className="btn btn-dark btn-sm" onClick={()=>{setFocus({x:p.x,y:p.y});sound.playClick()}}>{p.label}({p.x}, {p.y})</button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PracticeTab(){
+  const qs=[
+    {q:'Coordinates of a point in Quadrant II are of the form…', a:'(−, +)', hint:'Negative x, positive y', fig:{x:-3,y:4}},
+    {q:'Point (0, −3) lies on…', a:'the y-axis (negative direction)', hint:'x = 0 means on y-axis', fig:{x:0,y:-3}},
+    {q:'Is (2, 3) the same as (3, 2)?', a:'No — order matters; (x,y) ≠ (y,x) if x ≠ y', hint:'Abscissa first', fig:null},
+    {q:'Coordinates of origin?', a:'(0, 0)', hint:'Zero distance from both axes', fig:{x:0,y:0}},
+    {q:'A point has abscissa −4 and ordinate 5. Write coordinates and quadrant.', a:'(−4, 5) in Quadrant II', hint:'x negative, y positive', fig:{x:-4,y:5}},
+    {q:'How many cross-streets can be referred to as (4, 3)?', a:'Only one — each ordered pair names a unique crossing', hint:'Ordered pairs are unique', fig:null},
+  ];
+  const [idx,setIdx]=useState(0),[show,setShow]=useState(false);
+  const p=qs[idx];
+  return (
+    <div className="card h-full overflow-y-auto space-y-2">
+      <h2>Practice — Exercise Style</h2>
+      <p className="sub">Check your understanding. A figure appears when it helps.</p>
+      <div style={{display:'grid',gridTemplateColumns:p.fig?'1fr auto':'1fr',gap:'.7rem',alignItems:'start'}}>
+        <div className="result-box">
+          <div className="text-sm slate mb-1">Question {idx+1} of {qs.length}</div>
+          <div className="text-lg font-bold white mb-2">{p.q}</div>
+          {show?(
+            <div>
+              <div className="result-box" style={{borderColor:'#34d399'}}><strong className="green">Answer:</strong> {p.a}</div>
+              <div className="text-sm slate mt-1">Hint: {p.hint}</div>
+            </div>
+          ):(
+            <button className="btn btn-orange" onClick={()=>{setShow(true);sound.playClick()}}>Show Answer</button>
+          )}
+          <div className="flex gap-2 mt-3">
+            <button className="btn btn-dark btn-sm" disabled={idx===0} onClick={()=>{setIdx(idx-1);setShow(false);sound.playClick()}}>← Prev</button>
+            <button className="btn btn-dark btn-sm" disabled={idx===qs.length-1} onClick={()=>{setIdx(idx+1);setShow(false);sound.playClick()}}>Next →</button>
+          </div>
+        </div>
+        {p.fig && (
+          <CoordGrid points={[{x:p.fig.x,y:p.fig.y,label:'P',color:'#f97316'}]} highlight={p.fig} range={6} size={320} interactive={false}/>
+        )}
+      </div>
+      <div className="def-card"><div className="title">Quick reference</div>
+        <div className="body">Q I (+,+) · Q II (−,+) · Q III (−,−) · Q IV (+,−) · x-axis (x,0) · y-axis (0,y) · Origin (0,0)</div>
+      </div>
+    </div>
+  );
+}
+
+function QuizTab({ onQuizComplete, quizBest }){
+  const qs=[
+    {q:'The horizontal line in the Cartesian plane is called the…',options:['y-axis','x-axis','origin','ordinate'],correct:1,exp:'The horizontal number line is the x-axis; the vertical is the y-axis.'},
+    {q:'The point where the axes intersect is the…',options:['quadrant','abscissa','origin','ordinate'],correct:2,exp:'The origin O has coordinates (0, 0).'},
+    {q:'Coordinates of a point in Quadrant III are of the form…',options:['(+, +)','(−, +)','(−, −)','(+, −)'],correct:2,exp:'Both x and y are negative in Quadrant III.'},
+    {q:'A point on the x-axis has coordinates of the form…',options:['(0, y)','(x, 0)','(x, x)','(0, 0) only'],correct:1,exp:'On the x-axis the distance from the x-axis is 0, so y = 0.'},
+    {q:'The x-coordinate is also called the…',options:['ordinate','abscissa','origin','quadrant'],correct:1,exp:'Abscissa = x-coordinate; ordinate = y-coordinate.'},
+    {q:'(3, 4) and (4, 3) represent…',options:['the same point','different points','points on an axis','the origin'],correct:1,exp:'Order matters: (x, y) ≠ (y, x) when x ≠ y.'},
+    {q:'Quadrants are numbered…',options:['clockwise from OX','anticlockwise from OX','randomly','from OY'],correct:1,exp:'I → II → III → IV anticlockwise starting from the positive x-axis.'},
+    {q:'Point (−2, 0) lies…',options:['in Q II','in Q III','on the x-axis','on the y-axis'],correct:2,exp:'y = 0 means the point lies on the x-axis.'},
+    {q:'To fix a point in a plane we need…',options:['one number','two independent numbers','three numbers','only the distance from origin'],correct:1,exp:'Two perpendicular references (e.g. x and y) uniquely locate a point.'},
+    {q:'Who invented the Cartesian system?',options:['Euclid','Pythagoras','René Descartes','Aryabhata'],correct:2,exp:'French mathematician René Descartes (1596–1650).'},
+  ];
+  const [idx,setIdx]=useState(0),[sel,setSel]=useState(null),[score,setScore]=useState(0),[done,setDone]=useState(false),[show,setShow]=useState(false);
+  const submit=i=>{if(show)return;sound.playClick();setSel(i);setShow(true);if(i===qs[idx].correct){setScore(s=>s+1);sound.playSuccess();}};
+  const next=()=>{sound.playClick();if(idx+1>=qs.length)setDone(true);else{setIdx(idx+1);setSel(null);setShow(false);}};
+  const restart=()=>{setIdx(0);setSel(null);setScore(0);setDone(false);setShow(false);sound.playClick();};
+  if(done) return (
+    <div className="card h-full flex items-center justify-center">
+      <div className="text-center space-y-3" style={{maxWidth:420}}>
+        <div style={{fontSize:48}}>{score>=7?'🎉':'📚'}</div>
+        <h2>Quiz Complete</h2>
+        <div className="text-3xl font-black orange">{score} / {qs.length}</div>
+        {quizBest>0 && <p className="text-sm slate">Best so far: <span className="orange font-bold">{Math.max(quizBest,score)}/10</span></p>}
+        <button className="btn btn-orange" onClick={()=>{ if(onQuizComplete) onQuizComplete(score); restart(); }}>Save & Retry</button>
+      </div>
+    </div>
+  );
+  const q=qs[idx];
+  return (
+    <div className="card h-full overflow-y-auto space-y-2">
+      <div className="flex justify-between items-center">
+        <span className="text-sm slate font-bold">Question {idx+1} of {qs.length}</span>
+        <span className="badge">Score: {score}</span>
+      </div>
+      <div style={{height:8,background:'#1e293b',borderRadius:4,overflow:'hidden'}}>
+        <div style={{height:'100%',background:'linear-gradient(90deg,#f97316,#fbbf24)',width:`${((idx+(show?1:0))/qs.length)*100}%`,transition:'width .3s'}}/>
+      </div>
+      <h2 style={{fontSize:'1.2rem'}}>{q.q}</h2>
+      <div>
+        {q.options.map((o,i)=>{
+          let cls='quiz-opt';
+          if(show){if(i===q.correct)cls+=' correct';else if(i===sel)cls+=' wrong';else cls+=' disabled';}
+          return (
+            <button key={i} className={cls} onClick={()=>submit(i)} disabled={show}>
+              <span style={{width:30,height:30,borderRadius:7,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,flexShrink:0,background:show&&i===q.correct?'#10b981':show&&i===sel?'#ef4444':'#ea580c',color:'#fff'}}>{String.fromCharCode(65+i)}</span>
+              <span>{o}</span>
+            </button>
+          );
+        })}
+      </div>
+      {show && (
+        <div className={sel===q.correct?'tip-green':'tip'}>
+          <strong>{sel===q.correct?'✅ Correct!':'❌ Not quite.'}</strong> {q.exp}
+          <div className="mt-2"><button className="btn btn-orange" onClick={next}>{idx+1<qs.length?'Next →':'See Results'}</button></div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function SummaryTab(){
+  const points=[
+    'Two perpendicular lines are needed to locate a point in a plane.',
+    'Horizontal line = x-axis; vertical line = y-axis; intersection = origin O(0,0).',
+    'Axes divide the plane into four quadrants (I–IV, anticlockwise from OX).',
+    'x-coordinate = abscissa (distance from y-axis); y-coordinate = ordinate (distance from x-axis).',
+    'Coordinates written as ordered pair (x, y).',
+    'On x-axis: (x, 0). On y-axis: (0, y). Origin: (0, 0).',
+    'Q I (+,+), Q II (−,+), Q III (−,−), Q IV (+,−).',
+    'If x ≠ y then (x, y) ≠ (y, x).',
+  ];
+  return (
+    <div className="card h-full overflow-y-auto space-y-2">
+      <h2>Chapter Summary</h2>
+      <p className="sub">All key points from the NCERT summary.</p>
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'.4rem'}}>
+        {points.map((p,i)=>(
+          <div key={i} className="result-box" style={{padding:'.5rem .7rem'}}>
+            <strong className="orange">{i+1}.</strong> {p}
+          </div>
+        ))}
+      </div>
+      <div style={{display:'flex',justifyContent:'center',marginTop:'.5rem'}}>
+        <CoordGrid range={4} size={320} showQuadLabels interactive={false}
+          points={[{x:2,y:2,label:'I',color:'#4ade80'},{x:-2,y:2,label:'II',color:'#60a5fa'},{x:-2,y:-2,label:'III',color:'#f472b6'},{x:2,y:-2,label:'IV',color:'#fbbf24'}]}/>
+      </div>
+    </div>
+  );
+}
+
+function WhiteboardTab(){
+  const canvasRef=useRef(null);
+  const isDrawing=useRef(false);
+  const lastPos=useRef({x:0,y:0});
+  const [color,setColor]=useState('#f97316');
+  const [size,setSize]=useState(4);
+  const colorRef=useRef(color),sizeRef=useRef(size);
+  colorRef.current=color;sizeRef.current=size;
+  const getPos=useCallback((e)=>{
+    const c=canvasRef.current;if(!c)return{x:0,y:0};
+    const r=c.getBoundingClientRect();
+    const cx=e.touches?e.touches[0].clientX:e.clientX;
+    const cy=e.touches?e.touches[0].clientY:e.clientY;
+    return{x:(cx-r.left)*(c.width/r.width),y:(cy-r.top)*(c.height/r.height)};
+  },[]);
+  useEffect(()=>{
+    const c=canvasRef.current;if(!c)return;
+    const parent=c.parentElement;
+    const resize=()=>{
+      const dpr=window.devicePixelRatio||1,w=parent.clientWidth,h=parent.clientHeight;
+      c.width=w*dpr;c.height=h*dpr;c.style.width=w+'px';c.style.height=h+'px';
+      const ctx=c.getContext('2d');ctx.setTransform(1,0,0,1,0,0);ctx.scale(dpr,dpr);
+      ctx.fillStyle='#1e293b';ctx.fillRect(0,0,w,h);
+      // draw faint axes
+      ctx.strokeStyle='#334155';ctx.lineWidth=1;
+      ctx.beginPath();ctx.moveTo(w/2,0);ctx.lineTo(w/2,h);ctx.moveTo(0,h/2);ctx.lineTo(w,h/2);ctx.stroke();
+    };
+    resize();window.addEventListener('resize',resize);
+    const start=e=>{e.preventDefault();isDrawing.current=true;lastPos.current=getPos(e);};
+    const stop=()=>{isDrawing.current=false;};
+    const move=e=>{
+      if(!isDrawing.current)return;e.preventDefault();
+      const pos=getPos(e),ctx=c.getContext('2d'),dpr=window.devicePixelRatio||1;
+      ctx.setTransform(dpr,0,0,dpr,0,0);ctx.lineWidth=sizeRef.current;ctx.lineCap='round';ctx.strokeStyle=colorRef.current;
+      ctx.beginPath();ctx.moveTo(lastPos.current.x/dpr,lastPos.current.y/dpr);ctx.lineTo(pos.x/dpr,pos.y/dpr);ctx.stroke();
+      lastPos.current=pos;
+    };
+    ['mousedown','mouseup','mouseleave','mousemove','touchstart','touchend','touchmove'].forEach(ev=>{
+      const fn=ev.includes('down')||ev.includes('start')?start:ev.includes('up')||ev.includes('leave')||ev.includes('end')?stop:move;
+      c.addEventListener(ev,fn,{passive:false});
+    });
+    return()=>window.removeEventListener('resize',resize);
+  },[getPos]);
+  const clear=()=>{sound.playClick();const c=canvasRef.current;if(!c)return;const ctx=c.getContext('2d'),dpr=window.devicePixelRatio||1;const w=c.width/dpr,h=c.height/dpr;ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle='#1e293b';ctx.fillRect(0,0,c.width,c.height);ctx.scale(dpr,dpr);ctx.strokeStyle='#334155';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(w/2,0);ctx.lineTo(w/2,h);ctx.moveTo(0,h/2);ctx.lineTo(w,h/2);ctx.stroke();};
+  return (
+    <div className="card h-full flex flex-col space-y-2 overflow-hidden">
+      <div className="flex flex-wrap gap-2 items-center flex-shrink-0">
+        {['#f97316','#3b82f6','#10b981','#eab308','#ec4899','#ffffff'].map(c=>(
+          <button key={c} onClick={()=>{setColor(c);sound.playClick()}} style={{width:28,height:28,borderRadius:'50%',background:c,border:color===c?'3px solid #fff':'2px solid transparent'}}/>
+        ))}
+        {[2,4,8].map(s=><button key={s} className={`btn btn-sm ${size===s?'btn-orange':'btn-dark'}`} onClick={()=>{setSize(s);sound.playClick()}}>{s}px</button>)}
+        <button className="btn btn-sm" style={{background:'#dc2626',color:'#fff'}} onClick={clear}>Clear</button>
+        <span className="text-sm slate">Axes drawn as guide — sketch points & figures</span>
+      </div>
+      <div className="flex-1 rounded-xl overflow-hidden border border-slate-600" style={{minHeight:0,touchAction:'none'}}>
+        <canvas ref={canvasRef} style={{width:'100%',height:'100%',display:'block',touchAction:'none',cursor:'crosshair'}}/>
+      </div>
+    </div>
+  );
+}
+
+function App(){
+  const [tab,setTab]=useState('progress');
+  const [muted,setMuted]=useState(false);
+  const [isFs,setIsFs]=useState(false);
+  const [visited,setVisited]=useState({progress:true});
+  const [quizBest,setQuizBest]=useState(0);
+  const [quizAttempts,setQuizAttempts]=useState(0);
+  useEffect(()=>{sound.setMuted(muted);},[muted]);
+  useEffect(()=>{const h=()=>setIsFs(!!document.fullscreenElement);document.addEventListener('fullscreenchange',h);return()=>document.removeEventListener('fullscreenchange',h);},[]);
+  const toggleFs=()=>{sound.playClick();const el=document.querySelector('.simulation-container');if(!document.fullscreenElement)el?.requestFullscreen?.().catch(()=>{});else document.exitFullscreen?.().catch(()=>{});};
+  const goTab=(id)=>{sound.playClick();setTab(id);setVisited(v=>({...v,[id]:true}));};
+  const onQuizComplete=(score)=>{setQuizAttempts(a=>a+1);setQuizBest(b=>Math.max(b,score));};
+  const tabs=[
+    {id:'progress',label:'0. Progress',icon:'📊'},
+    {id:'overview',label:'1. Overview',icon:'📖'},
+    {id:'why',label:'2. Why Two?',icon:'🏠'},
+    {id:'cartesian',label:'3. Cartesian',icon:'＋'},
+    {id:'plot',label:'4. Plot Points',icon:'📍'},
+    {id:'quadrants',label:'5. Quadrants',icon:'⬚'},
+    {id:'axes',label:'6. On Axes',icon:'➕'},
+    {id:'practice',label:'7. Practice',icon:'📝'},
+    {id:'quiz',label:'8. Quiz',icon:'✓'},
+    {id:'summary',label:'9. Summary',icon:'📋'},
+    {id:'board',label:'10. Board',icon:'🖊️'},
+  ];
+  const content={
+    progress:<ProgressDash visited={visited} quizBest={quizBest} quizAttempts={quizAttempts} onGoTab={goTab}/>,
+    overview:<OverviewTab/>,why:<WhyTwoTab/>,cartesian:<CartesianTab/>,plot:<PlotTab/>,quadrants:<QuadrantsTab/>,axes:<AxesTab/>,practice:<PracticeTab/>,quiz:<QuizTab onQuizComplete={onQuizComplete} quizBest={quizBest}/>,summary:<SummaryTab/>,board:<WhiteboardTab/>
+  };
+  return (
+    <div className="simulation-container">
+      <header className="glass px-5 py-2.5 flex justify-between items-center z-30 flex-shrink-0" style={{borderBottom:'1px solid rgba(255,255,255,.1)'}}>
+        <div className="flex items-center gap-3">
+          <img src="data:image/png;base64,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" alt="APMF Logo" style={{width:48,height:48,borderRadius:10,objectFit:'contain',background:'transparent'}}/>
+          <div>
+            <h1 style={{fontSize:17,fontWeight:900,color:'#fff',letterSpacing:'-0.02em',lineHeight:1.2,margin:0}}>Coordinate Geometry</h1>
+            <p style={{fontSize:12,color:'#94a3b8',margin:0}}>NCERT Class 9 • Chapter 3</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-3">
+          <div style={{textAlign:'right',lineHeight:1.25}}>
+            <div style={{fontSize:12,fontWeight:700,color:'#fb923c'}}>Andhra Pradesh Mathematics Forum</div>
+            <div style={{fontSize:13,fontWeight:700,color:'#fff'}}>Gangalapudi Bhasker Reddy</div>
+          </div>
+          <div className="flex items-center gap-2" style={{background:'#1e293b',padding:'6px',borderRadius:12,border:'1px solid #334155'}}>
+            <button className="btn btn-dark btn-sm" onClick={()=>{sound.playClick();setMuted(!muted)}}>{muted?'🔇':'🔊'}</button>
+            <button className="btn btn-dark btn-sm" onClick={toggleFs}>{isFs?'🗗':'⛶'}</button>
+          </div>
+        </div>
+      </header>
+      <div className="tab-bar">
+        {tabs.map(t=>(
+          <button key={t.id} className={`tab ${tab===t.id?'on':''}`} onClick={()=>goTab(t.id)}>
+            <span>{t.icon}</span><span>{t.label}</span>
+          </button>
+        ))}
+      </div>
+      <main className="flex-1 overflow-hidden p-2"><div className="h-full fade">{content[tab]}</div></main>
+      <footer className="glass px-6 py-2 flex justify-between items-center flex-shrink-0" style={{fontSize:12,color:'#94a3b8',borderTop:'1px solid rgba(255,255,255,.1)'}}>
+        <span>NCERT Class 9 Mathematics • Chapter 3 • Coordinate Geometry</span>
+        <span>Andhra Pradesh Mathematics Forum • Author: <strong style={{color:'#e2e8f0'}}>Gangalapudi Bhasker Reddy</strong></span>
+      </footer>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

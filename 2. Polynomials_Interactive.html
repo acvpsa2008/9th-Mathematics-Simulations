@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Polynomials • NCERT Class 9 Chapter 2</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100vw;height:100vh;background:#0b0f19;color:#f8fafc;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;overflow:hidden;display:flex;justify-content:center;align-items:center;touch-action:manipulation}
+.viewport-wrapper{width:100vw;height:100vh;display:flex;justify-content:center;align-items:center;background:radial-gradient(circle at 20% 10%,#1e293b 0%,#0f172a 60%)}
+.simulation-container{width:100vw;height:56.25vw;max-height:100vh;max-width:177.78vh;position:relative;box-shadow:0 25px 50px -12px rgba(0,0,0,.8);display:flex;flex-direction:column;overflow:hidden;background:#0f172a;border-radius:12px;border:1px solid rgba(255,255,255,.14)}
+.simulation-container:fullscreen,.simulation-container:-webkit-full-screen{width:100vw;height:100vh;max-width:none;max-height:none;border-radius:0;border:none}
+.glass{background:rgba(30,41,59,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.14)}
+::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(249,115,22,.75);border-radius:4px}
+@keyframes fadeIn{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+.fade{animation:fadeIn .22s ease-out forwards}
+.flex{display:flex}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.justify-between{justify-content:space-between}.justify-center{justify-content:center}
+.gap-1{gap:.28rem}.gap-2{gap:.5rem}.gap-3{gap:.7rem}
+.w-full{width:100%}.h-full{height:100%}.flex-1{flex:1 1 0%}.flex-shrink-0{flex-shrink:0}
+.overflow-y-auto{overflow-y:auto}.overflow-hidden{overflow:hidden}.relative{position:relative}
+h2{font-size:1.6rem;font-weight:800;color:#fb923c;margin-bottom:.15rem;letter-spacing:-.02em}
+.sub{font-size:1.14rem;color:#94a3b8;margin-bottom:.4rem;line-height:1.4}
+label{font-size:1.08rem;font-weight:700;color:#e2e8f0;display:block;margin-bottom:.15rem}
+.text-lg{font-size:1.3rem}.text-base{font-size:1.16rem}.text-sm{font-size:1.06rem}.text-xs{font-size:.94rem}
+.font-mono{font-family:ui-monospace,Menlo,Consolas,monospace}.font-bold{font-weight:700}.font-black{font-weight:900}
+.orange{color:#fb923c}.amber{color:#fbbf24}.green{color:#4ade80}.red{color:#f87171}.blue{color:#60a5fa}.slate{color:#94a3b8}.white{color:#f8fafc}.emerald{color:#34d399}
+.input{background:#0f172a;border:2px solid #475569;color:#fff;border-radius:.55rem;padding:.55rem .7rem;font-size:1.2rem;font-weight:700;outline:none;width:110px;text-align:center}
+.input:focus{border-color:#f97316;box-shadow:0 0 0 3px rgba(249,115,22,.35)}
+.input-wide{width:100%;max-width:340px;text-align:left}
+.btn{cursor:pointer;border:none;border-radius:.55rem;font-weight:700;font-size:1.08rem;padding:.55rem 1.1rem;transition:all .12s;touch-action:manipulation}
+.btn-orange{background:#ea580c;color:#fff}.btn-orange:hover,.btn-orange:active{background:#f97316}
+.btn-dark{background:#1e293b;color:#e2e8f0;border:1px solid #475569}.btn-dark:hover,.btn-dark:active{background:#334155}
+.btn-emerald{background:#059669;color:#fff}.btn-emerald:hover{background:#10b981}
+.btn-sm{padding:.38rem .75rem;font-size:.96rem}
+.tab-bar{display:flex;overflow-x:auto;gap:.3rem;padding:.4rem .65rem;background:#0f172a;border-bottom:1px solid rgba(255,255,255,.12);flex-shrink:0}
+.tab{display:flex;align-items:center;gap:.28rem;padding:.5rem .85rem;border-radius:.5rem;font-size:.96rem;font-weight:700;cursor:pointer;border:none;white-space:nowrap;transition:all .12s;background:transparent;color:#94a3b8;touch-action:manipulation}
+.tab:hover{background:#1e293b;color:#e2e8f0}
+.tab.on{background:#ea580c;color:#fff;box-shadow:0 3px 14px rgba(234,88,12,.5)}
+.card{background:rgba(30,41,59,.97);border:1px solid rgba(255,255,255,.13);border-radius:.85rem;padding:.9rem 1.1rem;display:flex;flex-direction:column}
+.row{display:flex;flex-wrap:wrap;gap:.55rem;align-items:flex-end;margin-bottom:.45rem}
+.result-box{background:#0f172a;border:1px solid #475569;border-radius:.65rem;padding:.7rem .95rem;font-size:1.16rem;line-height:1.5}
+.tip{margin-top:.35rem;padding:.65rem .9rem;background:rgba(251,191,36,.2);border-left:5px solid #fbbf24;border-radius:0 .5rem .5rem 0;font-size:1.12rem;color:#f1f5f9;line-height:1.45}
+.tip-blue{margin-top:.35rem;padding:.65rem .9rem;background:rgba(96,165,250,.2);border-left:5px solid #60a5fa;border-radius:0 .5rem .5rem 0;font-size:1.12rem;color:#f1f5f9;line-height:1.45}
+.tip-green{margin-top:.35rem;padding:.65rem .9rem;background:rgba(52,211,153,.2);border-left:5px solid #34d399;border-radius:0 .5rem .5rem 0;font-size:1.12rem;color:#f1f5f9;line-height:1.45}
+.badge{display:inline-block;background:rgba(249,115,22,.35);color:#fb923c;padding:.2rem .65rem;border-radius:999px;font-size:1rem;font-weight:800}
+.quiz-opt{width:100%;text-align:left;padding:.65rem .95rem;border-radius:.6rem;border:2px solid #334155;background:#1e293b;color:#f1f5f9;font-size:1.12rem;font-weight:600;cursor:pointer;transition:all .12s;margin-bottom:.35rem;display:flex;align-items:center;gap:.6rem}
+.quiz-opt:hover{border-color:#f97316;background:rgba(249,115,22,.18)}
+.quiz-opt.correct{background:rgba(16,185,129,.32);border-color:#34d399;color:#d1fae5}
+.quiz-opt.wrong{background:rgba(239,68,68,.25);border-color:#f87171;color:#fecaca}
+.quiz-opt.disabled{pointer-events:none;opacity:.65}
+.math{font-family:Georgia,'Times New Roman',serif;font-size:1.3rem;font-weight:600;color:#fbbf24}
+.def-card{background:rgba(15,23,42,.94);border:1px solid #334155;border-radius:.6rem;padding:.65rem .85rem;margin:.25rem 0}
+.def-card .title{font-size:1.08rem;font-weight:800;color:#fbbf24;margin-bottom:.12rem}
+.def-card .body{font-size:1.1rem;color:#e2e8f0;line-height:1.45}
+.space-y-2>*+*{margin-top:.45rem}.space-y-3>*+*{margin-top:.6rem}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.55rem}
+@media(max-width:900px){.grid-2,.grid-3{grid-template-columns:1fr}}
+.chip{display:inline-flex;align-items:center;padding:.22rem .6rem;border-radius:999px;font-size:.98rem;font-weight:700;background:rgba(249,115,22,.28);color:#fb923c}
+.formula-box{background:linear-gradient(135deg,rgba(249,115,22,.18),rgba(251,191,36,.12));border:1px solid rgba(249,115,22,.45);border-radius:.65rem;padding:.7rem .95rem;font-size:1.16rem;line-height:1.55;margin:.35rem 0}
+.term-pill{display:inline-block;padding:.25rem .6rem;margin:.12rem;border-radius:.4rem;background:#1e293b;border:1.5px solid #475569;font-size:1.15rem;font-weight:700;color:#e2e8f0}
+.term-pill.high{border-color:#f97316;color:#fb923c;background:rgba(249,115,22,.25)}
+.katex{font-size:1.15em !important}
+.katex-display{margin:.4rem 0 !important}
+.fig-box{background:#0f172a;border:1px solid #334155;border-radius:.65rem;padding:.6rem;display:flex;justify-content:center;align-items:center}
+
+.dash-hero{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}
+@media(max-width:700px){.dash-hero{grid-template-columns:1fr}}
+.dash-stat{background:linear-gradient(145deg,rgba(30,41,59,.95),rgba(15,23,42,.98));border:1px solid rgba(249,115,22,.4);border-radius:.6rem;padding:.65rem .8rem}
+.dash-stat-label{font-size:.9rem;font-weight:800;color:#fb923c;text-transform:uppercase;letter-spacing:.04em}
+.dash-stat-value{font-size:1.6rem;font-weight:900;color:#f8fafc}
+.dash-bar{height:10px;background:#1e293b;border-radius:999px;margin-top:.35rem;overflow:hidden;border:1px solid #334155}
+.dash-bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#ea580c,#fbbf24,#4ade80);transition:width .35s}
+.dash-item{display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.45rem .6rem;margin-bottom:.22rem;background:rgba(15,23,42,.9);border:1px solid #475569;border-radius:.5rem;cursor:pointer}
+.dash-item:hover{border-color:#f97316}
+.dash-item.done{border-color:rgba(74,222,128,.5);background:rgba(74,222,128,.1)}
+.tip-wrap{position:relative;display:inline-flex;align-items:center}
+.tip-bubble{position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1e293b;color:#f1f5f9;border:1px solid #f97316;border-radius:8px;padding:6px 10px;font-size:.85rem;font-weight:600;max-width:240px;opacity:0;pointer-events:none;transition:opacity .15s;z-index:50;box-shadow:0 8px 18px rgba(0,0,0,.45)}
+.tip-wrap:hover .tip-bubble{opacity:1}
+.tip-icon{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:rgba(249,115,22,.3);color:#fb923c;font-size:.72rem;font-weight:900;cursor:help;margin-left:4px;border:1px solid rgba(249,115,22,.55)}
+
+</style>
+</head>
+<body>
+<div id="root" class="viewport-wrapper"></div>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+const { useState, useMemo, useEffect, useRef, useCallback } = React;
+
+class SoundEngine {
+  constructor(){ this.ctx=null; this.muted=false; }
+  init(){ if(!this.ctx) this.ctx=new (window.AudioContext||window.webkitAudioContext)(); if(this.ctx.state==='suspended') this.ctx.resume(); }
+  setMuted(v){ this.muted=v; }
+  playClick(){ if(this.muted)return; this.init(); try{ const o=this.ctx.createOscillator(),g=this.ctx.createGain(); o.type='sine'; o.frequency.setValueAtTime(620,this.ctx.currentTime); o.frequency.exponentialRampToValueAtTime(400,this.ctx.currentTime+.05); g.gain.setValueAtTime(.12,this.ctx.currentTime); g.gain.exponentialRampToValueAtTime(.001,this.ctx.currentTime+.05); o.connect(g); g.connect(this.ctx.destination); o.start(); o.stop(this.ctx.currentTime+.05);}catch(e){} }
+  playSuccess(){ if(this.muted)return; this.init(); try{ const now=this.ctx.currentTime; [523.25,659.25,783.99].forEach((f,i)=>{ const o=this.ctx.createOscillator(),g=this.ctx.createGain(); o.type='sine'; o.frequency.setValueAtTime(f,now+i*.1); g.gain.setValueAtTime(.15,now+i*.1); g.gain.exponentialRampToValueAtTime(.001,now+i*.1+.25); o.connect(g); g.connect(this.ctx.destination); o.start(now+i*.1); o.stop(now+i*.1+.25); }); }catch(e){} }
+}
+const sound = new SoundEngine();
+
+// KaTeX helper
+function MathTex({tex, display=false}) {
+  const ref = useRef(null);
+  useEffect(()=>{
+    if(ref.current && window.katex){
+      try{ katex.render(tex, ref.current, {throwOnError:false, displayMode:display}); }
+      catch(e){ ref.current.textContent = tex; }
+    } else if(ref.current) {
+      ref.current.textContent = tex;
+    }
+  },[tex,display]);
+  if(display) return <div ref={ref} style={{margin:'0.35rem 0',overflowX:'auto'}}/>;
+  return <span ref={ref}/>;
+}
+
+function Tip({ text }) {
+  return (<span className="tip-wrap"><span className="tip-icon" tabIndex={0}>?</span><span className="tip-bubble" role="tooltip">{text}</span></span>);
+}
+
+function ProgressDash({ visited, quizBest, quizAttempts, onGoTab }) {
+  const topics = [
+    {id:'overview', name:'Overview', goal:'Path from terms → degree → zeroes → factors'},
+    {id:'what', name:'What is a Polynomial?', goal:'Definition, coefficients, terms'},
+    {id:'degree', name:'Degree & Terms', goal:'Degree, leading coefficient'},
+    {id:'types', name:'Types', goal:'Linear, quadratic, cubic; mono/bi/trinomial'},
+    {id:'zeroes', name:'Zeroes', goal:'Find and interpret zeroes'},
+    {id:'eval', name:'Evaluate', goal:'Compute p(a) step by step'},
+    {id:'factor', name:'Factor Theorem', goal:'x−a is a factor ⇔ p(a)=0'},
+    {id:'ids', name:'Identities', goal:'(x±y)², x³±y³, etc.'},
+    {id:'practice', name:'Practice', goal:'Worked exercises'},
+    {id:'quiz', name:'Quiz', goal:'Score 5+ out of 6'},
+    {id:'board', name:'Board', goal:'Scratch work'},
+  ];
+  const total = topics.length;
+  const visitedCount = topics.filter(t => visited[t.id]).length;
+  const pct = Math.round(visitedCount / total * 100);
+  const stars = quizBest >= 5 ? 3 : quizBest >= 4 ? 2 : quizBest >= 3 ? 1 : 0;
+  return (
+    <div className="card h-full overflow-y-auto space-y-2">
+      <h2>📊 Progress Dashboard <Tip text="Visit each topic and take the quiz. Best score is saved here." /></h2>
+      <p className="sub">NCERT Class 9 · Chapter 2 · Polynomials</p>
+      <div className="dash-hero">
+        <div className="dash-stat">
+          <div className="dash-stat-label">Exploration</div>
+          <div className="dash-stat-value"><span className="green">{visitedCount}</span><span style={{color:'#64748b',fontSize:'1rem'}}>/{total}</span></div>
+          <div className="dash-bar"><div className="dash-bar-fill" style={{width:pct+'%'}}/></div>
+          <div className="text-sm slate">{pct}% complete</div>
+        </div>
+        <div className="dash-stat">
+          <div className="dash-stat-label">Quiz best</div>
+          <div className="dash-stat-value"><span className="green">{quizBest}</span><span style={{color:'#64748b',fontSize:'1rem'}}>/6</span></div>
+          <div className="text-sm slate">{quizAttempts} attempts · {'⭐'.repeat(stars)||'☆'}</div>
+        </div>
+      </div>
+      <div className="result-box" style={{marginTop:6}}>
+        {topics.map(t => (
+          <div key={t.id} className={'dash-item '+(visited[t.id]?'done':'')} onClick={()=>{sound.playClick();onGoTab(t.id);}}>
+            <div>
+              <div className="font-bold" style={{color:'#f8fafc'}}>{t.name}</div>
+              <div className="text-sm slate">{t.goal}</div>
+            </div>
+            <span>{visited[t.id]?'✅':'⬜'}</span>
+          </div>
+        ))}
+      </div>
+      <div className="tip-blue"><strong className="blue">Goal:</strong> Explore all topics and score ≥ 5/6 on the quiz.</div>
+      <div className="formula-box">Key: Degree = highest power · Zero ⇔ p(c)=0 · Factor Theorem: x−a is a factor ⇔ p(a)=0</div>
+    </div>
+  );
+}
+
+
+// Superscripts for plain text
+const SUP = {'0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'};
+function toSup(n){ return String(n).split('').map(c=>SUP[c]||c).join(''); }
+
+function parsePoly(str){
+  str = (str||'').replace(/\s+/g,'').toLowerCase();
+  if(!str) return null;
+  // Normalize unicode superscripts: x² → x^2, x³ → x^3, etc.
+  const SUP_MAP = {'⁰':'0','¹':'1','²':'2','³':'3','⁴':'4','⁵':'5','⁶':'6','⁷':'7','⁸':'8','⁹':'9'};
+  str = str.replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹]/g, c => '^'+SUP_MAP[c]);
+  // Also allow * as multiplication noise: 3*x → 3x
+  str = str.replace(/\*/g,'');
+  if(/\/|√|∛|x\^-\d|x\^\(/i.test(str)) return {error:'Not a polynomial (negative / fractional exponents or division detected)'};
+  if(/[a-z]{2,}/i.test(str)) return {error:'Multi-variable expressions are not handled here'};
+  const terms = [];
+  // Protect leading minus, then split on + and -
+  const parts = str.replace(/-/g,'+-').split('+').filter(Boolean);
+  for(let p of parts){
+    p = p.trim();
+    if(!p) continue;
+    let coef=1, exp=0;
+    if(p.includes('x')){
+      const m = p.match(/^([+-]?\d*\.?\d*)?x(?:\^(\d+))?$/);
+      if(!m) return {error:'Could not parse term: '+p};
+      const raw = m[1];
+      if(raw===undefined || raw==='' || raw==='+') coef = 1;
+      else if(raw==='-') coef = -1;
+      else {
+        coef = parseFloat(raw);
+        if(isNaN(coef)) return {error:'Invalid coefficient in term: '+p};
+      }
+      exp = m[2] ? parseInt(m[2],10) : 1;
+      if(isNaN(exp)) return {error:'Invalid exponent in term: '+p};
+    } else {
+      coef = parseFloat(p);
+      exp = 0;
+      if(isNaN(coef)) return {error:'Invalid constant: '+p};
+    }
+    terms.push({coef, exp});
+  }
+  if(terms.length===0) return {error:'No terms found'};
+  const map = {};
+  terms.forEach(t=>{ map[t.exp] = (map[t.exp]||0)+t.coef; });
+  const merged = Object.keys(map).map(e=>({exp:+e,coef:map[e]})).filter(t=>t.coef!==0).sort((a,b)=>b.exp-a.exp);
+  if(merged.length===0) return {terms:[{coef:0,exp:0}], degree: -Infinity, isZero:true};
+  return {terms:merged, degree:merged[0].exp, isZero:false};
+}
+
+function evalPoly(poly, x){
+  if(!poly||poly.error) return null;
+  if(typeof x!=='number' || isNaN(x)) return null;
+  let s = 0;
+  for(const t of poly.terms){
+    if(isNaN(t.coef) || isNaN(t.exp)) return null;
+    // Integer power for negative bases to avoid fractional issues
+    s += t.coef * Math.pow(x, t.exp);
+  }
+  return isNaN(s) ? null : s;
+}
+
+/** Build step-by-step evaluation strings for p(a) */
+function evalSteps(poly, a){
+  if(!poly||poly.error) return [];
+  const steps = [];
+  steps.push({label:'Write the polynomial', tex: polyKaTeX(poly)});
+  const subs = poly.terms.map(t=>{
+    const c = t.coef;
+    const abs = Math.abs(c);
+    let piece = '';
+    if(c<0) piece += '-';
+    else piece += '+';
+    if(t.exp===0) piece += abs;
+    else {
+      if(abs!==1) piece += abs;
+      piece += '(' + a + ')';
+      if(t.exp>1) piece += '^{' + t.exp + '}';
+    }
+    return piece;
+  }).join(' ');
+  // clean leading +
+  const subsClean = subs.replace(/^\+\s*/,'');
+  steps.push({label:'Substitute x = ' + a, tex: 'p(' + a + ') = ' + subsClean});
+  // numeric pieces
+  const nums = poly.terms.map(t=>{
+    const v = t.coef * Math.pow(a, t.exp);
+    return (v>=0?'+':'') + (Number.isInteger(v)?v:Number(v.toFixed(6)));
+  }).join(' ').replace(/^\+/,'');
+  steps.push({label:'Compute each power', tex: 'p(' + a + ') = ' + nums});
+  const total = evalPoly(poly, a);
+  const totalStr = total===null ? 'undefined' : (Number.isInteger(total)?String(total):Number(total.toFixed(6)).toString());
+  steps.push({label:'Add the values', tex: 'p(' + a + ') = ' + totalStr});
+  return steps;
+}
+
+function polyKaTeX(poly){
+  if(!poly||poly.error) return '';
+  if(poly.isZero) return '0';
+  return poly.terms.map((t,i)=>{
+    const c = t.coef;
+    const abs = Math.abs(c);
+    let s = '';
+    if(i===0){ if(c<0) s += '-'; }
+    else s += c<0 ? ' - ' : ' + ';
+    if(t.exp===0) s += abs;
+    else {
+      if(abs!==1) s += abs;
+      s += 'x';
+      if(t.exp>1) s += '^{'+t.exp+'}';
+    }
+    return s;
+  }).join('');
+}
+
+
+function formatTerm(t, showPlus){
+  const c = t.coef;
+  const abs = Math.abs(c);
+  let s = '';
+  if(showPlus) s += c<0 ? ' − ' : ' + ';
+  else if(c<0) s += '−';
+  if(t.exp===0){ s += abs; }
+  else {
+    if(abs!==1) s += abs;
+    s += 'x';
+    if(t.exp>1) s += toSup(t.exp);
+  }
+  return s;
+}
+
+function formatPolyNice(poly){
+  if(!poly||poly.error) return '';
+  if(poly.isZero) return '0';
+  return poly.terms.map((t,i)=>formatTerm(t, i>0)).join('');
+}
+
+function termKaTeX(t){
+  const c = t.coef;
+  const abs = Math.abs(c);
+  let s = '';
+  if(c<0) s += '-';
+  if(t.exp===0) s += abs;
+  else {
+    if(abs!==1) s += abs;
+    s += 'x';
+    if(t.exp>1) s += '^{'+t.exp+'}';
+  }
+  return s;
+}
+
+function OverviewTab(){
+  return (
+    <div className="card h-full overflow-y-auto space-y-2">
+      <h2>2. Polynomials</h2>
+      <p className="sub">NCERT Class 9 Mathematics • Interactive exploration of polynomials, zeroes, Factor Theorem & algebraic identities.</p>
+      <div className="grid-2">
+        <div className="def-card">
+          <div className="title">What you will learn</div>
+          <div className="body">• Definition & terms of a polynomial<br/>• Degree, coefficients, monomials / binomials / trinomials<br/>• Linear, quadratic & cubic polynomials<br/>• Zeroes of a polynomial<br/>• Factor Theorem & factorisation<br/>• Algebraic identities I–VIII</div>
+        </div>
+        <div className="def-card">
+          <div className="title">Standard form (degree n)</div>
+          <div className="body">
+            <MathTex tex="p(x)=a_n x^n + a_{n-1}x^{n-1}+\cdots+a_1 x+a_0" /><br/>
+            <span className="text-sm slate">(aₙ ≠ 0, exponents are whole numbers)</span>
+          </div>
+        </div>
+      </div>
+      <div className="formula-box">
+        <strong className="orange">Concept path:</strong> Variable → Terms → Degree → Type (linear / quadratic / cubic) → Zeroes → Factors (Factor Theorem) → Identities for expansion & factorisation.
+      </div>
+      <div className="grid-3">
+        <div className="result-box text-center">
+          <div style={{fontSize:28,marginBottom:4}}>🔢</div>
+          <div className="font-bold orange">Degree</div>
+          <div className="text-sm slate">Highest power of variable</div>
+        </div>
+        <div className="result-box text-center">
+          <div style={{fontSize:28,marginBottom:4}}>0</div>
+          <div className="font-bold orange">Zero</div>
+          <div className="text-sm slate"><MathTex tex="p(c)=0" /></div>
+        </div>
+        <div className="result-box text-center">
+          <div style={{fontSize:28,marginBottom:4}}><MathTex tex="x-a" /></div>
+          <div className="font-bold orange">Factor</div>
+          <div className="text-sm slate">Factor Theorem</div>
+        </div>
+      </div>
+      <div className="tip-blue">
+        <strong>Tip:</strong> Use the tabs to explore each idea. Try the interactive calculators, then test yourself in the Quiz. Sketch factor trees or identity expansions on the Board.
+      </div>
+    </div>
+  );
+}
+
+function WhatIsTab(){
+  const [expr,setExpr]=useState('3x^2 - 5x + 2');
+  const [res,setRes]=useState(null);
+  const check=()=>{
+    sound.playClick();
+    const p=parsePoly(expr);
+    setRes(p);
+    if(p&&!p.error) sound.playSuccess();
+  };
+  return (
+    <div className="card h-full overflow-y-auto space-y-2">
+      <h2>What is a Polynomial?</h2>
+      <p className="sub">An algebraic expression in which the exponents of the variable are whole numbers only.</p>
+      <div className="def-card">
+        <div className="title">Definition</div>
+        <div className="body">
+          A polynomial in one variable <em>x</em> is an expression of the form<br/>
+          <MathTex tex="a_n x^n + a_{n-1}x^{n-1}+\cdots+a_1 x+a_0" /> where <MathTex tex="a_n\neq 0" /> and all exponents are whole numbers (0, 1, 2, …).
+        </div>
+      </div>
+      <div className="row">
+        <div>
+          <label>Enter expression (use ^ for powers)</label>
+          <input className="input input-wide" value={expr} onChange={e=>setExpr(e.target.value)} placeholder="e.g. 2x^3 + x - 7"/>
+        </div>
+        <button className="btn btn-orange" onClick={check}>Check</button>
+      </div>
+      {res && (
+        res.error ? (
+          <div className="tip">
+            <strong>❌ Not a polynomial:</strong> {res.error}<br/>
+            Examples that are <strong>not</strong> polynomials: <MathTex tex="x+\dfrac{1}{x}" />, <MathTex tex="\sqrt{x}+3" />, <MathTex tex="\sqrt[3]{y}+y^2" />
+          </div>
+        ) : (
+          <div className="tip-green">
+            <strong>✅ This is a polynomial</strong> of degree <span className="orange font-black text-lg">{res.degree}</span>.
+            <div className="mt-1 flex flex-wrap items-center gap-1">
+              <span className="text-sm slate">Terms:</span>
+              {res.terms.map(t=>(
+                <span key={t.exp} className={`term-pill ${t.exp===res.degree?'high':''}`}>
+                  <MathTex tex={termKaTeX(t)} />
+                </span>
+              ))}
+            </div>
+          </div>
+        )
+      )}
+      <div className="grid-2">
+        <div className="def-card">
+          <div className="title">Constant & zero polynomials</div>
+          <div className="body">Examples: 2, −5, 7. Degree of a non-zero constant is 0. The <strong>zero polynomial</strong> has degree <em>not defined</em>.</div>
+        </div>
+        <div className="def-card">
+          <div className="title">Why not √x or 1/x?</div>
+          <div className="body">
+            <MathTex tex="\sqrt{x}=x^{1/2}" /> and <MathTex tex="\dfrac{1}{x}=x^{-1}" /> have exponents that are <strong>not</strong> whole numbers, so they are not polynomials.
+          </div>
+        </div>
+      </div>
+      <div className="formula-box">
+        <strong>Remember:</strong> Coefficients may be any real numbers (including √2, π). Only the <em>exponents of the variable</em> must be whole numbers.
+      </div>
+    </div>
+  );
+}
+
+function DegreeTab(){
+  const [expr,setExpr]=useState('5x^3 + 4x^2 + 7x');
+  const [poly,setPoly]=useState(null);
+  const analyse=()=>{
+    sound.playClick();
+    const p=parsePoly(expr);
+    setPoly(p);
+    if(p&&!p.error) sound.playSuccess();
+  };
+  return (
+    <div className="card h-full overflow-y-auto space-y-2">
+      <h2>Terms, Coefficients & Degree</h2>
+      <p className="sub">Identify every term, its coefficient and the degree of the polynomial.</p>
+      <div className="row">
+        <div>
+          <label>Polynomial (use ^ for powers)</label>
+          <input className="input input-wide" value={expr} onChange={e=>setExpr(e.target.value)}/>
+        </div>
+        <button className="btn btn-orange" onClick={analyse}>Analyse</button>
+      </div>
+      {poly && !poly.error && (
+        <>
+          <div className="result-box">
+            <div className="text-lg font-bold orange mb-1">Degree = {poly.degree}</div>
+            <div className="text-sm slate mb-2">Highest power of the variable</div>
+            <div className="flex flex-wrap gap-2">
+              {poly.terms.map(t=>(
+                <div key={t.exp} className="def-card" style={{minWidth:130}}>
+                  <div className="title">Term: <MathTex tex={termKaTeX(t)} /></div>
+                  <div className="body">Coefficient of <MathTex tex={'x^{'+t.exp+'}'} />: <strong className="amber">{t.coef}</strong></div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="tip-blue">
+            <strong>Classification:</strong>{' '}
+            {poly.terms.length===1 && <span className="chip">Monomial</span>}
+            {poly.terms.length===2 && <span className="chip">Binomial</span>}
+            {poly.terms.length===3 && <span className="chip">Trinomial</span>}
+            {poly.terms.length>3 && <span className="chip">{poly.terms.length} terms</span>}
+            {' · '}
+            {poly.degree===1 && <span className="chip">Linear</span>}
+            {poly.degree===2 && <span className="chip">Quadratic</span>}
+            {poly.degree===3 && <span className="chip">Cubic</span>}
+            {poly.degree>3 && <span className="chip">Degree {poly.degree}</span>}
+            {poly.degree===0 && <span className="chip">Constant</span>}
+          </div>
+        </>
+      )}
+      {poly && poly.error && <div className="tip">{poly.error}</div>}
+      <div className="grid-2">
+        <div className="def-card">
+          <div className="title">Linear · Quadratic · Cubic</div>
+          <div className="body">
+            • Linear (deg 1): <MathTex tex="ax+b" /> (a≠0)<br/>
+            • Quadratic (deg 2): <MathTex tex="ax^2+bx+c" /> (a≠0)<br/>
+            • Cubic (deg 3): <MathTex tex="ax^3+bx^2+cx+d" /> (a≠0)
+          </div>
+        </div>
+        <div className="def-card">
+          <div className="title">Chapter examples</div>
+          <div className="body">
+            <MathTex tex="5x^3+4x^2+7x" /> → deg 3 (cubic, trinomial)<br/>
+            <MathTex tex="4-y^2" /> → deg 2 (quadratic, binomial)<br/>
+            3 → deg 0 (constant)
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TypesTab(){
+  return (
+    <div className="card h-full overflow-y-auto space-y-2">
+      <h2>Types of Polynomials</h2>
+      <p className="sub">Classification by number of terms and by degree.</p>
+      <div className="grid-2">
+        <div className="def-card">
+          <div className="title">By number of terms</div>
+          <div className="body">
+            <strong className="orange">Monomial</strong> – one term (e.g. <MathTex tex="5x^3" />, −7, y)<br/>
+            <strong className="orange">Binomial</strong> – two terms (e.g. <MathTex tex="x+1" />, <MathTex tex="3y^2-2" />)<br/>
+            <strong className="orange">Trinomial</strong> – three terms (e.g. <MathTex tex="x^2+5x+6" />)
+          </div>
+        </div>
+        <div className="def-card">
+          <div className="title">By degree</div>
+          <div className="body">
+            <strong className="orange">Linear</strong> – degree 1<br/>
+            <strong className="orange">Quadratic</strong> – degree 2<br/>
+            <strong className="orange">Cubic</strong> – degree 3<br/>
+            Higher degrees are named accordingly.
+          </div>
+        </div>
+      </div>
+      <div className="formula-box">
+        <strong>Standard forms:</strong><br/>
+        Linear: <MathTex tex="ax+b" /> &nbsp;&nbsp; Quadratic: <MathTex tex="ax^2+bx+c" /> &nbsp;&nbsp; Cubic: <MathTex tex="ax^3+bx^2+cx+d" />
+        <br/><span className="text-sm slate">(leading coefficient a ≠ 0)</span>
+      </div>
+      <div className="tip">
+        <strong>Note:</strong> A linear polynomial in one variable can have at most 2 terms; a quadratic at most 3; a cubic at most 4.
+      </div>
+      <div className="result-box">
+        <div className="font-bold orange mb-1">Zero Polynomial</div>
+        <div>All coefficients are zero. Its degree is <strong>not defined</strong>. By convention every real number is a zero of the zero polynomial.</div>
+      </div>
+      <div className="fig-box" style={{marginTop:'.5rem'}}>
+        <svg width="320" height="90" viewBox="0 0 320 90">
+          <text x="10" y="22" fill="#fbbf24" fontSize="14" fontWeight="700">Degree visual</text>
+          <rect x="10" y="35" width="40" height="18" rx="4" fill="#ea580c"/>
+          <text x="18" y="48" fill="#fff" fontSize="11">deg 0</text>
+          <rect x="60" y="30" width="50" height="28" rx="4" fill="#f97316"/>
+          <text x="70" y="48" fill="#fff" fontSize="11">deg 1</text>
+          <rect x="120" y="22" width="60" height="44" rx="4" fill="#fb923c"/>
+          <text x="132" y="48" fill="#fff" fontSize="11">deg 2</text>
+          <rect x="190" y="12" width="70" height="64" rx="4" fill="#fdba74"/>
+          <text x="205" y="48" fill="#1e293b" fontSize="12" fontWeight="700">deg 3</text>
+          <text x="270" y="48" fill="#94a3b8" fontSize="12">…</text>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+function ZeroesTab(){
+  const [expr,setExpr]=useState('2x + 1');
+  const [val,setVal]=useState('-0.5');
+  const [msg,setMsg]=useState(null);
+  const check=()=>{
+    sound.playClick();
+    const p=parsePoly(expr);
+    if(p&&p.error){ setMsg({ok:false,text:p.error}); return; }
+    const x=parseFloat(val);
+    if(isNaN(x)){ setMsg({ok:false,text:'Enter a valid number'}); return; }
+    const y=evalPoly(p,x);
+    const isZero=Math.abs(y)<1e-9;
+    setMsg({ok:isZero, text: isZero ? `Yes! ${val} is a zero of the polynomial.` : `p(${val}) = ${Number(y.toFixed(5))} ≠ 0. Not a zero.`});
+    if(isZero) sound.playSuccess();
+  };
+  return (
+    <div className="card h-full overflow-y-auto space-y-2">
+      <h2>Zeroes of a Polynomial</h2>
+      <p className="sub">A number <em>c</em> is a zero of <MathTex tex="p(x)" /> if <MathTex tex="p(c)=0" />. It is also called a root of the equation <MathTex tex="p(x)=0" />.</p>
+      <div className="row">
+        <div>
+          <label>p(x)</label>
+          <input className="input input-wide" value={expr} onChange={e=>setExpr(e.target.value)}/>
+        </div>
+        <div>
+          <label>Test value c</label>
+          <input className="input" value={val} onChange={e=>setVal(e.target.value)}/>
+        </div>
+        <button className="btn btn-orange" onClick={check}>Check Zero</button>
+      </div>
+      {msg && <div className={msg.ok?'tip-green':'tip'}>{msg.text}</div>}
+      <div className="grid-2">
+        <div className="def-card">
+          <div className="title">Linear case</div>
+          <div className="body">For <MathTex tex="p(x)=ax+b" /> (a≠0) the unique zero is<br/><MathTex tex="x=-\dfrac{b}{a}" /></div>
+        </div>
+        <div className="def-card">
+          <div className="title">Important facts</div>
+          <div className="body">
+            • A zero need not be 0 itself<br/>
+            • 0 may be a zero (e.g. <MathTex tex="x^2-2x" />)<br/>
+            • Every linear polynomial has exactly one zero<br/>
+            • A polynomial can have more than one zero
+          </div>
+        </div>
+      </div>
+      <div className="formula-box">
+        <strong>Examples:</strong> <MathTex tex="p(x)=x-1" /> → p(1)=0 → 1 is a zero.<br/>
+        <MathTex tex="p(x)=2x+1" /> → zero is <MathTex tex="-\dfrac12" />.<br/>
+        A non-zero constant polynomial has no zero.
+      </div>
+      <div className="fig-box">
+        <svg width="340" height="70" viewBox="0 0 340 70">
+          <line x1="20" y1="35" x2="320" y2="35" stroke="#475569" strokeWidth="2"/>
+          <circle cx="100" cy="35" r="7" fill="#34d399"/>
+          <text x="90" y="58" fill="#4ade80" fontSize="13" fontWeight="700">c₁</text>
+          <circle cx="200" cy="35" r="7" fill="#34d399"/>
+          <text x="190" y="58" fill="#4ade80" fontSize="13" fontWeight="700">c₂</text>
+          <text x="110" y="22" fill="#94a3b8" fontSize="12">Zeroes on the number line (p(c)=0)</text>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+function EvaluateTab(){
+  const [expr,setExpr]=useState('5x^2 - 3x + 7');
+  const [x,setX]=useState('1');
+  const [result,setResult]=useState(null);
+  const [steps,setSteps]=useState([]);
+  const [stepShown,setStepShown]=useState(0);
+
+  const run=()=>{
+    sound.playClick();
+    const p=parsePoly(expr);
+    if(!p){ setResult({error:'Enter a polynomial'}); setSteps([]); return; }
+    if(p.error){ setResult({error:p.error}); setSteps([]); return; }
+    const xv=parseFloat(x);
+    if(isNaN(xv)){ setResult({error:'Invalid x — enter a number'}); setSteps([]); return; }
+    const y=evalPoly(p,xv);
+    if(y===null || isNaN(y)){
+      setResult({error:'Could not evaluate. Use caret powers like x^2, x^3.'});
+      setSteps([]);
+      return;
+    }
+    setResult({y, nice:formatPolyNice(p)});
+    setSteps(evalSteps(p, xv));
+    setStepShown(0);
+    sound.playSuccess();
+  };
+
+  return (
+    <div className="card h-full overflow-y-auto space-y-2">
+      <h2>Evaluate a Polynomial</h2>
+      <p className="sub">Replace the variable by a number and compute the value — step by step.</p>
+      <div className="row">
+        <div>
+          <label>p(x) — use ^ for powers</label>
+          <input className="input input-wide" value={expr} onChange={e=>{setExpr(e.target.value); setResult(null); setSteps([]);}}/>
+        </div>
+        <div>
+          <label>x =</label>
+          <input className="input" value={x} onChange={e=>{setX(e.target.value); setResult(null); setSteps([]);}}/>
+        </div>
+        <button className="btn btn-orange" onClick={run}>Evaluate</button>
+      </div>
+      <div className="row">
+        {[{e:'5x^2-3x+7',x:'1'},{e:'x^3+3x^2+5x+6',x:'-2'},{e:'2x+5',x:'3'}].map(pr=>(
+          <button key={pr.e+pr.x} className="btn btn-dark btn-sm" onClick={()=>{sound.playClick();setExpr(pr.e);setX(pr.x);setResult(null);setSteps([]);}}>{pr.e}, x={pr.x}</button>
+        ))}
+      </div>
+      {result && (
+        result.error ? <div className="tip">{result.error}</div> :
+        <div className="result-box">
+          <div className="text-lg">p({x}) = <span className="orange font-black text-2xl">{result.y}</span></div>
+          <div className="text-sm slate mt-1">Polynomial: {result.nice}</div>
+        </div>
+      )}
+      {steps.length>0 && (
+        <div className="result-box">
+          <div className="flex justify-between items-center" style={{marginBottom:6}}>
+            <strong className="orange">How we got the answer</strong>
+            <div className="flex gap-1">
+              {stepShown < steps.length && <button className="btn btn-orange btn-sm" onClick={()=>{sound.playClick();setStepShown(s=>Math.min(s+1,steps.length));}}>Next step →</button>}
+              {stepShown < steps.length && <button className="btn btn-dark btn-sm" onClick={()=>{sound.playClick();setStepShown(steps.length);}}>Show all</button>}
+              {stepShown>0 && <button className="btn btn-dark btn-sm" onClick={()=>{sound.playClick();setStepShown(0);}}>Hide</button>}
+            </div>
+          </div>
+          {steps.slice(0,stepShown).map((st,i)=>(
+            <div key={i} className="def-card">
+              <div className="title">Step {i+1}: {st.label}</div>
+              <div className="body"><MathTex tex={st.tex} display={true}/></div>
+            </div>
+          ))}
+        </div>
+      )}
+      <div className="tip-blue">
+        <strong>Try these from the chapter:</strong><br/>
+        • <MathTex tex="p(x)=5x^2-3x+7" /> at x=1 → 9<br/>
+        • <MathTex tex="p(x)=x^3+3x^2+5x+6" /> at x=−2 → 0<br/>
+        • Type powers as <code>x^2</code>, <code>x^3</code> (caret key)
+      </div>
+    </div>
+  );
+}
+
+function FactorTab(){
+  const [expr,setExpr]=useState('x^3 + 3x^2 + 5x + 6');
+  const [a,setA]=useState('-2');
+  const [msg,setMsg]=useState(null);
+  const [steps,setSteps]=useState([]);
+  const [stepShown,setStepShown]=useState(0);
+
+  const check=()=>{
+    sound.playClick();
+    const p=parsePoly(expr);
+    if(!p){ setMsg({ok:false,text:'Enter a polynomial'}); setSteps([]); return; }
+    if(p.error){ setMsg({ok:false,text:p.error}); setSteps([]); return; }
+    const av=parseFloat(a);
+    if(isNaN(av)){ setMsg({ok:false,text:'Enter a valid number for a (e.g. -2 or 3)'}); setSteps([]); return; }
+    const val=evalPoly(p,av);
+    if(val===null || isNaN(val)){
+      setMsg({ok:false,text:'Could not evaluate p('+a+'). Check the polynomial (use x^2, x^3 with a caret ^, not superscripts only).'});
+      setSteps([]);
+      return;
+    }
+    const isFactor=Math.abs(val)<1e-9;
+    const valStr = Number.isInteger(val)?String(val):Number(val.toFixed(6)).toString();
+    setMsg({
+      ok:isFactor,
+      text: isFactor
+        ? 'p('+a+') = 0  ⇒  (x − ('+a+')) is a factor. (Factor Theorem)'
+        : 'p('+a+') = '+valStr+' ≠ 0  ⇒  (x − ('+a+')) is NOT a factor.'
+    });
+    const st = evalSteps(p, av);
+    if(isFactor){
+      st.push({label:'Conclusion (Factor Theorem)', tex: 'p('+a+')=0 \\;\\Rightarrow\\; (x-('+a+')) \\text{ is a factor}'});
+    } else {
+      st.push({label:'Conclusion', tex: 'p('+a+')\\neq 0 \\;\\Rightarrow\\; (x-('+a+')) \\text{ is not a factor}'});
+    }
+    setSteps(st);
+    setStepShown(0);
+    if(isFactor) sound.playSuccess();
+  };
+
+  return (
+    <div className="card h-full overflow-y-auto space-y-2">
+      <h2>Factor Theorem</h2>
+      <p className="sub"><MathTex tex="x-a" /> is a factor of <MathTex tex="p(x)" /> if and only if <MathTex tex="p(a)=0" />.</p>
+      <div className="formula-box">
+        <strong>Statement:</strong> If <MathTex tex="p(x)" /> is a polynomial of degree ≥ 1 and <em>a</em> is any real number, then<br/>
+        (i) <MathTex tex="x-a" /> is a factor of <MathTex tex="p(x)" /> if <MathTex tex="p(a)=0" />, and<br/>
+        (ii) <MathTex tex="p(a)=0" /> if <MathTex tex="x-a" /> is a factor of <MathTex tex="p(x)" />.
+      </div>
+      <div className="row">
+        <div>
+          <label>p(x) — use ^ for powers (e.g. x^3)</label>
+          <input className="input input-wide" value={expr} onChange={e=>{setExpr(e.target.value); setMsg(null); setSteps([]);}}/>
+        </div>
+        <div>
+          <label>a (for x − a)</label>
+          <input className="input" value={a} onChange={e=>{setA(e.target.value); setMsg(null); setSteps([]);}}/>
+        </div>
+        <button className="btn btn-orange" onClick={check}>Test Factor</button>
+      </div>
+      <div className="row">
+        {['x^3+3x^2+5x+6|-2','x^2-5x+6|2','x^2-5x+6|3','x^3-1|1'].map(pair=>{
+          const [e,av]=pair.split('|');
+          return <button key={pair} className="btn btn-dark btn-sm" onClick={()=>{sound.playClick();setExpr(e);setA(av);setMsg(null);setSteps([]);}}>{e}, a={av}</button>;
+        })}
+      </div>
+      {msg && <div className={msg.ok?'tip-green':'tip'}>{msg.text}</div>}
+
+      {steps.length>0 && (
+        <div className="result-box">
+          <div className="flex justify-between items-center" style={{marginBottom:6}}>
+            <strong className="orange">Step-by-step evaluation</strong>
+            <div className="flex gap-1">
+              {stepShown < steps.length && <button className="btn btn-orange btn-sm" onClick={()=>{sound.playClick();setStepShown(s=>Math.min(s+1,steps.length));}}>Next step →</button>}
+              {stepShown < steps.length && <button className="btn btn-dark btn-sm" onClick={()=>{sound.playClick();setStepShown(steps.length);}}>Show all</button>}
+              {stepShown>0 && <button className="btn btn-dark btn-sm" onClick={()=>{sound.playClick();setStepShown(0);}}>Hide</button>}
+            </div>
+          </div>
+          {stepShown===0 && <p className="text-sm slate">Click Next step to see the substitution and arithmetic.</p>}
+          {steps.slice(0,stepShown).map((st,i)=>(
+            <div key={i} className="def-card">
+              <div className="title">Step {i+1}: {st.label}</div>
+              <div className="body"><MathTex tex={st.tex} display={true}/></div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div className="def-card">
+        <div className="title">Worked example from chapter</div>
+        <div className="body">
+          <MathTex tex="p(x)=x^3+3x^2+5x+6" />, a = −2<br/>
+          <MathTex tex="p(-2)=(-2)^3+3(-2)^2+5(-2)+6=-8+12-10+6=0" /> → <MathTex tex="x+2" /> is a factor.
+        </div>
+      </div>
+      <div className="tip-blue">
+        <strong>Tip:</strong> Type powers with a caret, e.g. <code>x^3</code> not a special superscript. NaN means the expression could not be evaluated — usually a typing issue in the polynomial.
+      </div>
+      <div className="tip-blue">
+        <strong>How to factorise a cubic:</strong> Find one rational zero by trial (factors of the constant term), use Factor Theorem, then divide to get a quadratic and factor that.
+      </div>
+    </div>
+  );
+}
+
+function IdentitiesTab(){
+  const [id,setId]=useState('I');
+  const identities = {
+    'I': {title:'(x+y)²', tex:'(x+y)^2=x^2+2xy+y^2', note:'Square of a binomial'},
+    'II': {title:'(x−y)²', tex:'(x-y)^2=x^2-2xy+y^2', note:'Square of a binomial'},
+    'III': {title:'x² − y²', tex:'x^2-y^2=(x+y)(x-y)', note:'Difference of squares'},
+    'IV': {title:'(x+a)(x+b)', tex:'(x+a)(x+b)=x^2+(a+b)x+ab', note:'Product of two linear factors'},
+    'V': {title:'(x+y+z)²', tex:'(x+y+z)^2=x^2+y^2+z^2+2xy+2yz+2zx', note:'Square of a trinomial'},
+    'VI': {title:'(x+y)³', tex:'(x+y)^3=x^3+y^3+3xy(x+y)', note:'Cube of a binomial'},
+    'VII': {title:'(x−y)³', tex:'(x-y)^3=x^3-y^3-3xy(x-y)', note:'Cube of a binomial'},
+    'VIII': {title:'x³+y³+z³−3xyz', tex:'x^3+y^3+z^3-3xyz=(x+y+z)(x^2+y^2+z^2-xy-yz-zx)', note:'Sum of cubes identity'}
+  };
+  const cur=identities[id];
+  return (
+    <div className="card h-full overflow-y-auto space-y-2">
+      <h2>Algebraic Identities</h2>
+      <p className="sub">Equations that are true for all values of the variables. Use them to expand and factorise quickly.</p>
+      <div className="flex flex-wrap gap-2 mb-2">
+        {Object.keys(identities).map(k=>(
+          <button key={k} className={`btn btn-sm ${id===k?'btn-orange':'btn-dark'}`} onClick={()=>{sound.playClick();setId(k)}}>
+            {k}
+          </button>
+        ))}
+      </div>
+      <div className="result-box">
+        <div className="text-lg font-bold orange">{cur.title}</div>
+        <div style={{margin:'.5rem 0'}}><MathTex tex={cur.tex} display={true} /></div>
+        <div className="text-sm slate">{cur.note}</div>
+      </div>
+      <div className="grid-2">
+        <div className="def-card">
+          <div className="title">Useful for products</div>
+          <div className="body">
+            105 × 106 = (100+5)(100+6) = 10000 + 1100 + 30 = 11130<br/>
+            (using Identity IV)
+          </div>
+        </div>
+        <div className="def-card">
+          <div className="title">Useful for factorisation</div>
+          <div className="body">
+            <MathTex tex="49a^2+70ab+25b^2=(7a+5b)^2" /><br/>
+            <MathTex tex="\dfrac{25}{4}x^2-\dfrac{y^2}{9}=\left(\dfrac{5}{2}x+\dfrac{y}{3}\right)\left(\dfrac{5}{2}x-\dfrac{y}{3}\right)" />
+          </div>
+        </div>
+      </div>
+      <div className="tip">
+        <strong>Memory aid:</strong> Identity V expands the square of three terms; VI & VII expand cubes; VIII links the sum of three cubes to a product when −3xyz appears.
+      </div>
+    </div>
+  );
+}
+
+function PracticeTab(){
+  const problems = [
+    {q:'Degree of 2 − y² − y³ + 2y⁸', a:'8'},
+    {q:'Coefficient of x² in (π/2)x² + x', a:'π/2'},
+    {q:'Zero of 3x − 2', a:'2/3'},
+    {q:'Is x+2 a factor of x³+3x²+5x+6?', a:'Yes (p(−2)=0)'},
+    {q:'Expand (x+3)² using Identity I', a:'x² + 6x + 9'},
+    {q:'Factorise y² − 5y + 6', a:'(y−2)(y−3)'},
+  ];
+  const [idx,setIdx]=useState(0);
+  const [show,setShow]=useState(false);
+  const p=problems[idx];
+  return (
+    <div className="card h-full overflow-y-auto space-y-2">
+      <h2>Quick Practice</h2>
+      <p className="sub">Short questions from the chapter concepts.</p>
+      <div className="result-box">
+        <div className="badge mb-2">Q{idx+1} / {problems.length}</div>
+        <div className="text-lg font-bold">{p.q}</div>
+        {show && <div className="tip-green mt-2"><strong>Answer:</strong> {p.a}</div>}
+      </div>
+      <div className="row">
+        <button className="btn btn-orange" onClick={()=>{sound.playClick();setShow(true)}}>Show Answer</button>
+        <button className="btn btn-dark" onClick={()=>{sound.playClick();setShow(false);setIdx((idx+1)%problems.length)}}>Next →</button>
+      </div>
+      <div className="tip-blue">
+        <strong>More practice:</strong> Open the textbook exercises 2.1 – 2.4. Use the Factor and Evaluate tabs to verify your answers.
+      </div>
+    </div>
+  );
+}
+
+function QuizTab({ onQuizComplete, quizBest }){
+  const qs = [
+    {q:'Which of the following is a polynomial?', options:['x + 1/x','√x + 3','3x² − 2x + 5','∛y + y²'], correct:2, exp:'Only whole-number exponents are allowed. 3x²−2x+5 is a polynomial.'},
+    {q:'Degree of the polynomial 5t − √7 is', options:['1','0','5','undefined'], correct:0, exp:'Highest power of t is 1, so degree is 1 (linear).'},
+    {q:'A zero of p(x)=x−5 is', options:['5','−5','0','1'], correct:0, exp:'p(5)=0, therefore 5 is a zero.'},
+    {q:'If x−1 is a factor of 4x³+3x²−4x+k, then k =', options:['3','−3','0','1'], correct:1, exp:'p(1)=0 ⇒ 4+3−4+k=0 ⇒ k=−3.'},
+    {q:'(x+y)² expands to', options:['x²+y²','x²−2xy+y²','x²+2xy+y²','x²+xy+y²'], correct:2, exp:'Identity I: (x+y)² = x² + 2xy + y².'},
+    {q:'Number of zeroes of a non-zero constant polynomial is', options:['1','0','infinitely many','2'], correct:1, exp:'A non-zero constant never becomes zero.'},
+    {q:'x³ − y³ can be written as', options:['(x−y)(x²−xy+y²)','(x−y)(x²+xy+y²)','(x+y)(x²−xy+y²)','(x+y)(x²+xy+y²)'], correct:1, exp:'Standard factorisation of difference of cubes.'},
+    {q:'The polynomial 2x³ + 1 is', options:['linear','quadratic','cubic','monomial of degree 0'], correct:2, exp:'Highest power is 3, so cubic (also a binomial).'},
+  ];
+  const [idx,setIdx]=useState(0);
+  const [sel,setSel]=useState(null);
+  const [show,setShow]=useState(false);
+  const [score,setScore]=useState(0);
+  const submit=(i)=>{
+    if(show) return;
+    sound.playClick();
+    setSel(i); setShow(true);
+    if(i===qs[idx].correct){ setScore(s=>s+1); sound.playSuccess(); }
+  };
+  const next=()=>{
+    sound.playClick();
+    if(idx+1<qs.length){ setIdx(idx+1); setSel(null); setShow(false); }
+    else setIdx(qs.length);
+  };
+  const restart=()=>{ sound.playClick(); setIdx(0); setSel(null); setShow(false); setScore(0); };
+  if(idx>=qs.length){
+    return (
+      <div className="card h-full overflow-y-auto flex flex-col items-center justify-center space-y-3" style={{maxWidth:420,margin:'0 auto'}}>
+        <div style={{fontSize:48}}>{score>=qs.length*0.7?'🎉':'📚'}</div>
+        <h2>Quiz Complete</h2>
+        <div className="text-3xl font-black orange">{score} / {qs.length}</div>
+        <p className="text-base slate">{score===qs.length?'Perfect mastery!':score>=qs.length*0.7?'Great work!':'Review the tabs and try again.'}</p>
+        {quizBest>0 && <p className="text-sm slate">Best so far: <span className="orange font-bold">{Math.max(quizBest,score)}/6</span></p>}
+        <button className="btn btn-orange" onClick={()=>{ if(onQuizComplete) onQuizComplete(score); restart(); }}>Save & Retry</button>
+      </div>
+    );
+  }
+  const q=qs[idx];
+  return (
+    <div className="card h-full overflow-y-auto space-y-2">
+      <div className="flex justify-between items-center">
+        <span className="text-sm slate font-bold">Question {idx+1} of {qs.length}</span>
+        <span className="badge">Score: {score}</span>
+      </div>
+      <div style={{height:8,background:'#1e293b',borderRadius:4,overflow:'hidden'}}>
+        <div style={{height:'100%',background:'linear-gradient(90deg,#f97316,#fbbf24)',width:`${((idx+(show?1:0))/qs.length)*100}%`,transition:'width .3s'}}/>
+      </div>
+      <h2 style={{fontSize:'1.25rem'}}>{q.q}</h2>
+      <div>
+        {q.options.map((o,i)=>{
+          let cls='quiz-opt';
+          if(show){if(i===q.correct)cls+=' correct';else if(i===sel)cls+=' wrong';else cls+=' disabled';}
+          return (
+            <button key={i} className={cls} onClick={()=>submit(i)} disabled={show}>
+              <span style={{width:32,height:32,borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,flexShrink:0,background:show&&i===q.correct?'#10b981':show&&i===sel?'#ef4444':'#ea580c',color:'#fff'}}>{String.fromCharCode(65+i)}</span>
+              <span>{o}</span>
+            </button>
+          );
+        })}
+      </div>
+      {show && (
+        <div className={sel===q.correct?'tip-green':'tip'}>
+          <strong>{sel===q.correct?'✅ Correct!':'❌ Not quite.'}</strong> {q.exp}
+          <div className="mt-2"><button className="btn btn-orange" onClick={next}>{idx+1<qs.length?'Next Question →':'See Results'}</button></div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function WhiteboardTab(){
+  const canvasRef=useRef(null);
+  const isDrawing=useRef(false);
+  const lastPos=useRef({x:0,y:0});
+  const [color,setColor]=useState('#f97316');
+  const [size,setSize]=useState(5);
+  const colorRef=useRef(color),sizeRef=useRef(size);
+  colorRef.current=color;sizeRef.current=size;
+  const getPos=useCallback((e)=>{
+    const canvas=canvasRef.current;if(!canvas)return{x:0,y:0};
+    const rect=canvas.getBoundingClientRect();
+    let clientX,clientY;
+    if(e.touches&&e.touches.length>0){clientX=e.touches[0].clientX;clientY=e.touches[0].clientY;}
+    else if(e.changedTouches&&e.changedTouches.length>0){clientX=e.changedTouches[0].clientX;clientY=e.changedTouches[0].clientY;}
+    else{clientX=e.clientX;clientY=e.clientY;}
+    return{x:(clientX-rect.left)*(canvas.width/rect.width),y:(clientY-rect.top)*(canvas.height/rect.height)};
+  },[]);
+  useEffect(()=>{
+    const canvas=canvasRef.current;if(!canvas)return;
+    const parent=canvas.parentElement;
+    const resize=()=>{
+      const dpr=window.devicePixelRatio||1,w=parent.clientWidth,h=parent.clientHeight;
+      canvas.width=w*dpr;canvas.height=h*dpr;canvas.style.width=w+'px';canvas.style.height=h+'px';
+      const ctx=canvas.getContext('2d');ctx.setTransform(1,0,0,1,0,0);ctx.scale(dpr,dpr);
+      ctx.fillStyle='#1e293b';ctx.fillRect(0,0,w,h);
+    };
+    resize();window.addEventListener('resize',resize);
+    const start=e=>{e.preventDefault();isDrawing.current=true;lastPos.current=getPos(e);};
+    const stop=e=>{e.preventDefault();isDrawing.current=false;};
+    const move=e=>{
+      if(!isDrawing.current)return;e.preventDefault();
+      const pos=getPos(e),ctx=canvas.getContext('2d'),dpr=window.devicePixelRatio||1;
+      ctx.setTransform(dpr,0,0,dpr,0,0);ctx.lineWidth=sizeRef.current;ctx.lineCap='round';ctx.lineJoin='round';ctx.strokeStyle=colorRef.current;
+      ctx.beginPath();ctx.moveTo(lastPos.current.x/dpr,lastPos.current.y/dpr);ctx.lineTo(pos.x/dpr,pos.y/dpr);ctx.stroke();
+      lastPos.current=pos;
+    };
+    ['mousedown','mouseup','mouseleave','mousemove','touchstart','touchend','touchcancel','touchmove'].forEach(ev=>{
+      const fn=ev.includes('down')||ev.includes('start')?start:(ev.includes('up')||ev.includes('leave')||ev.includes('cancel')||ev.includes('end')?stop:move);
+      canvas.addEventListener(ev,fn,{passive:false});
+    });
+    return()=>window.removeEventListener('resize',resize);
+  },[getPos]);
+  const clear=()=>{
+    sound.playClick();
+    const canvas=canvasRef.current;if(!canvas)return;
+    const ctx=canvas.getContext('2d'),dpr=window.devicePixelRatio||1;
+    ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle='#1e293b';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.scale(dpr,dpr);
+  };
+  return (
+    <div className="card h-full flex flex-col space-y-2 overflow-hidden">
+      <div className="flex flex-wrap gap-2 items-center flex-shrink-0">
+        <span className="text-sm font-bold slate">Color:</span>
+        {['#f97316','#3b82f6','#10b981','#eab308','#ec4899','#ffffff','#f87171'].map(c=>(
+          <button key={c} onClick={()=>{sound.playClick();setColor(c)}}
+            style={{width:28,height:28,borderRadius:'50%',border:color===c?'3px solid #fff':'2px solid transparent',background:c,cursor:'pointer'}}/>
+        ))}
+        <span className="text-sm font-bold slate" style={{marginLeft:6}}>Size:</span>
+        {[3,5,8,14].map(s=>(
+          <button key={s} className={`btn btn-sm ${size===s?'btn-orange':'btn-dark'}`} onClick={()=>{sound.playClick();setSize(s)}}>{s}px</button>
+        ))}
+        <button className="btn btn-sm" style={{background:'#dc2626',color:'#fff'}} onClick={clear}>Clear</button>
+      </div>
+      <div className="flex-1 rounded-xl overflow-hidden border border-slate-600 relative" style={{minHeight:0,touchAction:'none'}}>
+        <canvas ref={canvasRef} style={{width:'100%',height:'100%',display:'block',touchAction:'none',cursor:'crosshair'}}/>
+      </div>
+      <p className="text-xs slate text-center flex-shrink-0">Sketch factor trees, identity expansions or polynomial graphs. Works with touch / stylus / mouse.</p>
+    </div>
+  );
+}
+
+function App(){
+  const [tab,setTab]=useState('progress');
+  const [muted,setMuted]=useState(false);
+  const [isFs,setIsFs]=useState(false);
+  const [visited,setVisited]=useState({progress:true});
+  const [quizBest,setQuizBest]=useState(0);
+  const [quizAttempts,setQuizAttempts]=useState(0);
+  useEffect(()=>{sound.setMuted(muted);},[muted]);
+  useEffect(()=>{const h=()=>setIsFs(!!document.fullscreenElement);document.addEventListener('fullscreenchange',h);return()=>document.removeEventListener('fullscreenchange',h);},[]);
+  const toggleFs=()=>{sound.playClick();const el=document.querySelector('.simulation-container');if(!document.fullscreenElement)el?.requestFullscreen?.().catch(()=>{});else document.exitFullscreen?.().catch(()=>{});};
+  const goTab=(id)=>{sound.playClick();setTab(id);setVisited(v=>({...v,[id]:true}));};
+  const onQuizComplete=(score)=>{setQuizAttempts(a=>a+1);setQuizBest(b=>Math.max(b,score));};
+  const tabs=[
+    {id:'progress',label:'0. Progress',icon:'📊'},
+    {id:'overview',label:'1. Overview',icon:'📖'},
+    {id:'what',label:'2. What is Poly?',icon:'𝑃'},
+    {id:'degree',label:'3. Degree & Terms',icon:'🔢'},
+    {id:'types',label:'4. Types',icon:'▢'},
+    {id:'zeroes',label:'5. Zeroes',icon:'0'},
+    {id:'eval',label:'6. Evaluate',icon:'𝑓'},
+    {id:'factor',label:'7. Factor Thm',icon:'𝑥−𝑎'},
+    {id:'ids',label:'8. Identities',icon:'≡'},
+    {id:'practice',label:'9. Practice',icon:'📝'},
+    {id:'quiz',label:'10. Quiz',icon:'✓'},
+    {id:'board',label:'11. Board',icon:'🖊️'},
+  ];
+  const content={
+    progress:<ProgressDash visited={visited} quizBest={quizBest} quizAttempts={quizAttempts} onGoTab={goTab}/>,
+    overview:<OverviewTab/>,
+    what:<WhatIsTab/>,
+    degree:<DegreeTab/>,
+    types:<TypesTab/>,
+    zeroes:<ZeroesTab/>,
+    eval:<EvaluateTab/>,
+    factor:<FactorTab/>,
+    ids:<IdentitiesTab/>,
+    practice:<PracticeTab/>,
+    quiz:<QuizTab onQuizComplete={onQuizComplete} quizBest={quizBest}/>,
+    board:<WhiteboardTab/>
+  };
+  const logoB64 = "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";
+  return (
+    <div className="simulation-container">
+      <header className="glass px-5 py-2.5 flex justify-between items-center z-30 flex-shrink-0" style={{borderBottom:'1px solid rgba(255,255,255,.1)'}}>
+        <div className="flex items-center gap-3">
+          <img src={`data:image/png;base64,${logoB64}`} alt="APMF Logo" style={{width:48,height:48,borderRadius:10,objectFit:'contain',background:'transparent'}}/>
+          <div>
+            <h1 style={{fontSize:17,fontWeight:900,color:'#fff',letterSpacing:'-0.02em',lineHeight:1.2,margin:0}}>Polynomials</h1>
+            <p style={{fontSize:12,color:'#94a3b8',margin:0}}>NCERT Class 9 • Chapter 2</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-3">
+          <div style={{textAlign:'right',lineHeight:1.25}}>
+            <div style={{fontSize:12,fontWeight:700,color:'#fb923c'}}>Andhra Pradesh Mathematics Forum</div>
+            <div style={{fontSize:13,fontWeight:700,color:'#fff'}}>Gangalapudi Bhasker Reddy</div>
+          </div>
+          <div className="flex items-center gap-2" style={{background:'#1e293b',padding:'6px',borderRadius:12,border:'1px solid #334155'}}>
+            <button className="btn btn-dark btn-sm" onClick={()=>{sound.playClick();setMuted(!muted)}} title={muted?'Unmute':'Mute'}>{muted?'🔇':'🔊'}</button>
+            <button className="btn btn-dark btn-sm" onClick={toggleFs} title={isFs?'Exit full screen':'Full screen'}>{isFs?'🗗':'⛶'}</button>
+          </div>
+        </div>
+      </header>
+      <div className="tab-bar">
+        {tabs.map(t=>(
+          <button key={t.id} className={`tab ${tab===t.id?'on':''}`} onClick={()=>goTab(t.id)}>
+            <span>{t.icon}</span><span>{t.label}</span>
+          </button>
+        ))}
+      </div>
+      <main className="flex-1 overflow-hidden p-2"><div className="h-full fade">{content[tab]}</div></main>
+      <footer className="glass px-6 py-2 flex justify-between items-center flex-shrink-0" style={{fontSize:12,color:'#94a3b8',borderTop:'1px solid rgba(255,255,255,.1)'}}>
+        <span>NCERT Mathematics • Chapter 2 • Polynomials</span>
+        <span>Andhra Pradesh Mathematics Forum • Author: <strong style={{color:'#e2e8f0'}}>Gangalapudi Bhasker Reddy</strong></span>
+      </footer>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

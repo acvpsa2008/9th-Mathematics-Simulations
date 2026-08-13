@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Interactive Class 9 NCERT Mathematics Simulations Portal. Learn and explore math concepts visually.">
+  <title>Class 9 Interactive Math Lab • Simulations Hub</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Site Header Banner -->
+    <header class="site-header">
+      <div class="header-brand">
+        <img src="logo.png" alt="APMF Logo" class="site-logo">
+        <div class="brand-text">
+          <span class="brand-title">Andhrapradesh Mathematics Forum</span>
+          <span class="brand-sub">The Largest Math forum in INDIA</span>
+        </div>
+      </div>
+      <div class="president-info">
+        <span class="president-name">Gangalapudi Bhaskar Reddy</span>
+        <span class="president-title">APMF State President</span>
+        <a href="tel:8555079452" class="president-phone">📞 8555079452</a>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <header class="hero">
+      <div class="hero-split-container">
+        
+        <!-- Main Heading & Info -->
+        <div class="hero-main-content">
+          <div class="hero-badge">
+            <svg style="width:14px;height:14px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+            </svg>
+            <span>Interactive Mathematics Portal</span>
+          </div>
+          <h1>Class 9 Mathematics Lab</h1>
+          <p>Dive into visual, interactive simulations mapped to your Class 9 math syllabus. Drag, edit, and experiment to master core concepts.</p>
+        </div>
+        
+        <!-- Pinned Note Card -->
+        <div class="hero-pinned-note">
+          <div class="pinned-note-header">
+            <span>📌 Pinned Note</span>
+          </div>
+          <p>This website is useful for all the Students who follows NCERT curriculum across INDIA.</p>
+        </div>
+        
+      </div>
+    </header>
+
+    <!-- Progress & Analytics Hub -->
+    <section class="progress-panel">
+      <div class="progress-info">
+        <div class="progress-radial">
+          <svg viewBox="0 0 72 72">
+            <circle class="bg" cx="36" cy="36" r="32" />
+            <circle class="bar" cx="36" cy="36" r="32" />
+          </svg>
+          <div class="progress-percentage">0%</div>
+        </div>
+        <div class="progress-text">
+          <h3>Your Learning Progress</h3>
+          <p id="progress-subtext">0 of 12 Simulations Mastered</p>
+        </div>
+      </div>
+
+      <!-- Controls (Search) -->
+      <div class="controls">
+        <div class="search-box">
+          <input type="text" id="search-input" placeholder="Search simulations, chapters, or topics..." autocomplete="off">
+          <svg style="width:20px;height:20px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filter Category Tabs -->
+    <nav class="filter-tabs" id="filter-tabs">
+      <button class="filter-tab active" data-filter="all">All Chapters</button>
+      <button class="filter-tab" data-filter="algebra">Algebra & Equations</button>
+      <button class="filter-tab" data-filter="geometry">Geometry</button>
+      <button class="filter-tab" data-filter="mensuration">Mensuration (Area & Vol)</button>
+      <button class="filter-tab" data-filter="statistics">Data & Statistics</button>
+    </nav>
+
+    <!-- Dynamic Simulation Grid -->
+    <main class="sim-grid" id="sim-grid">
+      <!-- Injected dynamically via app.js -->
+    </main>
+
+    <!-- Page Footer -->
+    <footer>
+      <p>Class 9 Interactive Math Lab &copy; 2026. Made for teachers and students.</p>
+      <p>Designed by: <strong>Gangalapudi Bhaskar Reddy</strong>, APMF State President, <a href="tel:8555079452">8555079452</a>, Andhrapradesh</p>
+    </footer>
+
+  </div>
+
+  <!-- Fullscreen Modal / Simulation Runner Overlay -->
+  <div class="overlay" id="simulation-overlay">
+    <div class="overlay-container">
+      <header class="overlay-header">
+        <div class="overlay-title">
+          <h2 id="overlay-title-text">Simulation</h2>
+          <span class="chapter-badge" id="overlay-chapter-badge">Chapter 0</span>
+        </div>
+        <div class="overlay-controls">
+          <a class="overlay-btn" id="newtab-overlay" target="_blank" title="Open in new tab">
+            <svg style="width:18px;height:18px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+          <button class="overlay-btn" id="fullscreen-overlay" title="Toggle fullscreen">
+            <svg style="width:18px;height:18px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+            </svg>
+          </button>
+          <button class="overlay-btn btn-close" id="close-overlay" title="Close Simulation">
+            <svg style="width:18px;height:18px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </header>
+      <div class="overlay-body">
+        <iframe class="overlay-iframe" id="overlay-iframe" src="about:blank"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

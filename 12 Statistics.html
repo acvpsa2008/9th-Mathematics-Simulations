@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>Statistics • Class 9 Chapter 12</title>
+<script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.23.5/babel.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100vw;height:100vh;background:#0b0f19;color:#f1f5f9;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;overflow:hidden;display:flex;justify-content:center;align-items:center;touch-action:manipulation}
+.viewport-wrapper{width:100vw;height:100vh;display:flex;justify-content:center;align-items:center;background:radial-gradient(circle at 25% 15%,#1e293b 0%,#0f172a 65%)}
+.simulation-container{width:100vw;height:56.25vw;max-height:100vh;max-width:177.78vh;position:relative;box-shadow:0 25px 50px -12px rgba(0,0,0,.75);display:flex;flex-direction:column;overflow:hidden;background:#0f172a;border-radius:12px;border:1px solid rgba(255,255,255,.12)}
+.simulation-container:fullscreen,.simulation-container:-webkit-full-screen{width:100vw;height:100vh;max-width:none;max-height:none;border-radius:0;border:none}
+.glass{background:rgba(30,41,59,.96);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.14)}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:rgba(249,115,22,.6);border-radius:3px}
+@keyframes fadeIn{from{opacity:0;transform:translateY(2px)}to{opacity:1;transform:translateY(0)}}
+.fade{animation:fadeIn .15s ease-out}
+.flex{display:flex}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.justify-between{justify-content:space-between}.justify-center{justify-content:center}
+.gap-1{gap:.12rem}.gap-2{gap:.3rem}
+.w-full{width:100%}.h-full{height:100%}.flex-1{flex:1 1 0%}
+.overflow-y-auto{overflow-y:auto}.overflow-hidden{overflow:hidden}
+.grid{display:grid}.grid-2{grid-template-columns:1fr 1fr}.grid-3{grid-template-columns:1fr 1fr 1fr}
+@media(max-width:900px){.grid-2,.grid-3{grid-template-columns:1fr}}
+h2{font-size:1.15rem;font-weight:800;color:#fb923c;margin-bottom:0}
+.sub{font-size:.92rem;color:#e2e8f0;margin-bottom:.1rem;line-height:1.28}
+.text-sm{font-size:.9rem}.text-xs{font-size:.8rem}
+.font-bold{font-weight:700}
+.orange{color:#fb923c}.amber{color:#fbbf24}.green{color:#4ade80}.red{color:#f87171}.blue{color:#60a5fa}.slate{color:#94a3b8}.white{color:#f8fafc}
+.btn{cursor:pointer;border:none;border-radius:.35rem;font-weight:700;font-size:.84rem;padding:.26rem .5rem}
+.btn-orange{background:#ea580c;color:#fff}.btn-orange:hover{background:#f97316}
+.btn-dark{background:#1e293b;color:#e2e8f0;border:1px solid #475569}.btn-dark:hover{background:#334155}
+.btn-sm{padding:.2rem .42rem;font-size:.78rem}
+.tab-bar{display:flex;overflow-x:auto;gap:.08rem;padding:.16rem .25rem;background:#0f172a;border-bottom:1px solid rgba(255,255,255,.1);flex-shrink:0}
+.tab{display:flex;align-items:center;gap:.1rem;padding:.26rem .42rem;border-radius:.3rem;font-size:.72rem;font-weight:700;cursor:pointer;border:none;white-space:nowrap;background:transparent;color:#94a3b8}
+.tab:hover{background:#1e293b;color:#e2e8f0}.tab.on{background:#ea580c;color:#fff;box-shadow:0 2px 8px rgba(234,88,12,.45)}
+.card{background:rgba(30,41,59,.98);border:1px solid rgba(255,255,255,.16);border-radius:.45rem;padding:.4rem .52rem}
+.tip{margin-top:.1rem;padding:.32rem .48rem;background:rgba(251,191,36,.24);border-left:3px solid #fbbf24;border-radius:0 .3rem .3rem 0;font-size:.88rem;color:#fef3c7;line-height:1.3}
+.tip-blue{margin-top:.1rem;padding:.32rem .48rem;background:rgba(96,165,250,.24);border-left:3px solid #60a5fa;border-radius:0 .3rem .3rem 0;font-size:.88rem;color:#dbeafe;line-height:1.3}
+.tip-green{margin-top:.1rem;padding:.32rem .48rem;background:rgba(52,211,153,.24);border-left:3px solid #34d399;border-radius:0 .3rem .3rem 0;font-size:.88rem;color:#d1fae5;line-height:1.3}
+.badge{display:inline-block;background:rgba(249,115,22,.42);color:#fdba74;padding:.05rem .32rem;border-radius:999px;font-size:.72rem;font-weight:800}
+.quiz-opt{width:100%;text-align:left;padding:.38rem .48rem;border-radius:.35rem;border:2px solid #334155;background:#1e293b;color:#f1f5f9;font-size:.9rem;font-weight:600;cursor:pointer;margin-bottom:.1rem;display:flex;align-items:center;gap:.3rem}
+.quiz-opt:hover{border-color:#f97316}.quiz-opt.correct{background:rgba(16,185,129,.35);border-color:#34d399;color:#d1fae5}
+.quiz-opt.wrong{background:rgba(239,68,68,.3);border-color:#f87171;color:#fecaca}
+.quiz-opt.disabled{pointer-events:none;opacity:.7}
+.fig{background:#0c1220;border:1px solid #334155;border-radius:7px;display:block}
+.def-box{background:rgba(15,23,42,.95);border:1px solid #334155;border-radius:5px;padding:5px 8px;margin:2px 0}
+.def-box .t{font-size:.86rem;font-weight:800;color:#fbbf24}
+.def-box .b{font-size:.88rem;color:#e2e8f0;line-height:1.28}
+input[type=range]{width:100%;height:6px;border-radius:3px;background:#334155;-webkit-appearance:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:linear-gradient(135deg,#f97316,#fbbf24);cursor:pointer}
+input[type=number]{width:52px;background:#1e293b;border:1px solid #475569;color:#f1f5f9;border-radius:4px;padding:2px 4px;font-size:.85rem}
+
+.dash-hero{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}
+@media(max-width:700px){.dash-hero{grid-template-columns:1fr}}
+.dash-stat{background:linear-gradient(145deg,rgba(30,41,59,.95),rgba(15,23,42,.98));border:1px solid rgba(249,115,22,.4);border-radius:.6rem;padding:.55rem .7rem}
+.dash-stat-label{font-size:.8rem;font-weight:800;color:#fb923c;text-transform:uppercase;letter-spacing:.04em}
+.dash-stat-value{font-size:1.4rem;font-weight:900;color:#f8fafc}
+.dash-bar{height:9px;background:#1e293b;border-radius:999px;margin-top:.3rem;overflow:hidden;border:1px solid #334155}
+.dash-bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#ea580c,#fbbf24,#4ade80);transition:width .35s}
+.dash-item{display:flex;align-items:center;justify-content:space-between;gap:.45rem;padding:.35rem .5rem;margin-bottom:.18rem;background:rgba(15,23,42,.9);border:1px solid #475569;border-radius:.4rem;cursor:pointer}
+.dash-item:hover{border-color:#f97316}
+.dash-item.done{border-color:rgba(74,222,128,.5);background:rgba(74,222,128,.1)}
+.tip-wrap{position:relative;display:inline-flex;align-items:center}
+.tip-bubble{position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1e293b;color:#f1f5f9;border:1px solid #f97316;border-radius:8px;padding:5px 9px;font-size:.75rem;font-weight:600;max-width:220px;opacity:0;pointer-events:none;transition:opacity .15s;z-index:50;box-shadow:0 8px 18px rgba(0,0,0,.45)}
+.tip-wrap:hover .tip-bubble{opacity:1}
+.tip-icon{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:50%;background:rgba(249,115,22,.3);color:#fb923c;font-size:.65rem;font-weight:900;cursor:help;margin-left:3px;border:1px solid rgba(249,115,22,.55)}
+.formula-box{background:linear-gradient(135deg,rgba(249,115,22,.18),rgba(251,191,36,.12));border:1px solid rgba(249,115,22,.45);border-radius:.5rem;padding:.5rem .7rem;font-size:.9rem;line-height:1.4;margin:.25rem 0}
+.result-box{background:#0f172a;border:1px solid #475569;border-radius:.5rem;padding:.5rem .7rem;font-size:.9rem;line-height:1.35}
+
+</style>
+</head>
+<body>
+<div class="viewport-wrapper"><div id="root" class="simulation-container"></div></div>
+<script type="text/babel" data-presets="react">
+const {useState,useEffect,useMemo} = React;
+const LOGO = 'data:image/png;base64,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';
+
+class SoundEngine{
+  constructor(){this.ctx=null;this.muted=false}
+  init(){if(!this.ctx)this.ctx=new(window.AudioContext||window.webkitAudioContext)();if(this.ctx.state==='suspended')this.ctx.resume()}
+  setMuted(v){this.muted=v}
+  playClick(){if(this.muted)return;this.init();try{const o=this.ctx.createOscillator(),g=this.ctx.createGain();o.type='sine';o.frequency.value=620;g.gain.setValueAtTime(.09,this.ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,this.ctx.currentTime+.04);o.connect(g);g.connect(this.ctx.destination);o.start();o.stop(this.ctx.currentTime+.04)}catch(e){}}
+  playSuccess(){if(this.muted)return;this.init();try{const n=this.ctx.currentTime;[523,659,784].forEach((f,i)=>{const o=this.ctx.createOscillator(),g=this.ctx.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.11,n+i*.08);g.gain.exponentialRampToValueAtTime(.001,n+i*.08+.18);o.connect(g);g.connect(this.ctx.destination);o.start(n+i*.08);o.stop(n+i*.08+.18)})}catch(e){}}
+  playError(){if(this.muted)return;this.init();try{const o=this.ctx.createOscillator(),g=this.ctx.createGain();o.type='sawtooth';o.frequency.value=160;g.gain.setValueAtTime(.06,this.ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,this.ctx.currentTime+.09);o.connect(g);g.connect(this.ctx.destination);o.start();o.stop(this.ctx.currentTime+.09)}catch(e){}}
+}
+const sound=new SoundEngine();
+function Tip({ text }) {
+  return (<span className="tip-wrap"><span className="tip-icon" tabIndex={0}>?</span><span className="tip-bubble" role="tooltip">{text}</span></span>);
+}
+
+function ProgressDash({ visited, quizBest, quizAttempts, onGoTab }) {
+  const topics = [
+    {id:'over', name:'Overview', goal:'Data representation'},
+    {id:'bar', name:'Bar Graphs', goal:'Discrete categories'},
+    {id:'hist', name:'Histogram', goal:'Continuous data, equal width'},
+    {id:'vary', name:'Varying Width', goal:'Frequency density'},
+    {id:'poly', name:'Freq. Polygon', goal:'Join mid-points'},
+    {id:'exp', name:'Explore', goal:'Build your own graph'},
+    {id:'quiz', name:'Quiz', goal:'Score 8+ out of 10'}
+  ];
+  const total = topics.length;
+  const visitedCount = topics.filter(t => visited[t.id]).length;
+  const pct = Math.round(visitedCount / total * 100);
+  const stars = quizBest >= 8 ? 3 : quizBest >= 6 ? 2 : quizBest >= 4 ? 1 : 0;
+  return (
+    <div className="h-full overflow-y-auto" style={{padding:4}}>
+      <div className="card">
+        <h2>📊 Progress Dashboard <Tip text="Visit each topic and take the quiz. Best score is saved here." /></h2>
+        <p className="sub">NCERT Class 9 · Chapter 12 · Statistics</p>
+        <div className="dash-hero">
+          <div className="dash-stat">
+            <div className="dash-stat-label">Exploration</div>
+            <div className="dash-stat-value"><span className="green">{visitedCount}</span><span style={{color:'#64748b',fontSize:'.9rem'}}>/{total}</span></div>
+            <div className="dash-bar"><div className="dash-bar-fill" style={{width:pct+'%'}}/></div>
+            <div className="text-sm slate">{pct}% complete</div>
+          </div>
+          <div className="dash-stat">
+            <div className="dash-stat-label">Quiz best</div>
+            <div className="dash-stat-value"><span className="green">{quizBest}</span><span style={{color:'#64748b',fontSize:'.9rem'}}>/10</span></div>
+            <div className="text-sm slate">{quizAttempts} attempts · {'⭐'.repeat(stars)||'☆'}</div>
+          </div>
+        </div>
+        <div className="result-box" style={{marginTop:5}}>
+          {topics.map(t => (
+            <div key={t.id} className={'dash-item '+(visited[t.id]?'done':'')} onClick={()=>{sound.playClick();onGoTab(t.id);}}>
+              <div>
+                <div className="font-bold" style={{color:'#f8fafc'}}>{t.name}</div>
+                <div className="text-sm slate">{t.goal}</div>
+              </div>
+              <span>{visited[t.id]?'✅':'⬜'}</span>
+            </div>
+          ))}
+        </div>
+        <div className="tip-blue"><strong className="blue">Goal:</strong> Explore all topics and score ≥ 8/10 on the quiz.</div>
+        <div className="formula-box">Key: Bar graph · Histogram · Frequency density · Frequency polygon · Class intervals</div>
+      </div>
+    </div>
+  );
+}
+
+
+const COLORS=['#f97316','#60a5fa','#34d399','#fbbf24','#a78bfa','#f472b6','#22d3ee','#fb923c'];
+
+function OverviewTab(){
+  return (
+    <div className="h-full overflow-y-auto" style={{padding:3}}>
+      <div className="card" style={{marginBottom:3}}>
+        <h2>Ch 12 · Statistics</h2>
+        <p className="sub">Graphical representation of data — bar graphs · histograms · frequency polygons</p>
+      </div>
+      <div className="grid grid-3" style={{gap:3,marginBottom:3}}>
+        {[
+          ['1. Bar Graphs','Uniform bars · discrete categories · equal gaps'],
+          ['2. Histogram','Continuous class intervals · no gaps · uniform width'],
+          ['3. Varying Width','Frequency density = f / class width'],
+          ['4. Freq. Polygon','Join mid-points of histogram tops'],
+          ['5. Explore','Live data · build your own graph'],
+          ['6. Quiz','10 MCQs with explanations'],
+        ].map(([t,d],i)=>(
+          <div key={t} className="card" style={{borderColor:'rgba(249,115,22,.4)'}}>
+            <div className="badge">Tab {i+1}</div>
+            <div className="orange font-bold" style={{fontSize:'.98rem',marginTop:1}}>{t}</div>
+            <div className="text-sm" style={{color:'#cbd5e1'}}>{d}</div>
+          </div>
+        ))}
+      </div>
+      <div className="card">
+        <div className="def-box"><div className="t">Why graphs?</div><div className="b">“One picture is better than a thousand words.” Graphs make comparisons easier than tables alone.</div></div>
+        <div className="tip" style={{marginTop:3}}><strong>Bar graph:</strong> discrete categories · gaps between bars · <strong>Histogram:</strong> continuous classes · bars touch · <strong>Frequency polygon:</strong> line joining class mid-points</div>
+      </div>
+    </div>
+  );
+}
+
+function BarTab(){
+  const [data,setData]=useState([
+    {label:'Grocery',val:4},{label:'Rent',val:5},{label:'Education',val:5},
+    {label:'Medicine',val:2},{label:'Fuel',val:2},{label:'Entertain.',val:1},{label:'Misc.',val:1}
+  ]);
+  const [sel,setSel]=useState(0);
+  const maxV=Math.max(...data.map(d=>d.val),1);
+  const W=380,H=200,padL=36,padB=36,padT=16,padR=12;
+  const chartW=W-padL-padR, chartH=H-padT-padB;
+  const gap=8, n=data.length;
+  const barW=(chartW-(n+1)*gap)/n;
+  const update=(i,v)=>{const nd=[...data];nd[i]={...nd[i],val:Math.max(0,Math.min(10,+v||0))};setData(nd)};
+  return (
+    <div className="h-full overflow-y-auto" style={{padding:3}}>
+      <div className="card" style={{marginBottom:3}}>
+        <h2>Bar Graphs</h2>
+        <p className="sub">Family expenditure (₹ thousands) — drag values with the slider</p>
+      </div>
+      <div className="card">
+        <div style={{display:'flex',justifyContent:'center'}}>
+          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="fig">
+            {/* axes */}
+            <line x1={padL} y1={padT} x2={padL} y2={H-padB} stroke="#64748b" strokeWidth="2"/>
+            <line x1={padL} y1={H-padB} x2={W-padR} y2={H-padB} stroke="#64748b" strokeWidth="2"/>
+            {[0,1,2,3,4,5].map(u=>(
+              <g key={u}>
+                <line x1={padL-3} y1={H-padB-(u/5)*chartH} x2={padL} y2={H-padB-(u/5)*chartH} stroke="#64748b"/>
+                <text x={padL-6} y={H-padB-(u/5)*chartH+4} textAnchor="end" fill="#94a3b8" fontSize="11">{u}</text>
+              </g>
+            ))}
+            {data.map((d,i)=>{
+              const x=padL+gap+i*(barW+gap);
+              const h=(d.val/Math.max(maxV,5))*chartH;
+              const y=H-padB-h;
+              return (
+                <g key={i} style={{cursor:'pointer'}} onClick={()=>{setSel(i);sound.playClick()}}>
+                  <rect x={x} y={y} width={barW} height={h} rx="3"
+                    fill={sel===i?COLORS[i%COLORS.length]:COLORS[i%COLORS.length]+'cc'}
+                    stroke={sel===i?'#fff':'none'} strokeWidth="2"/>
+                  <text x={x+barW/2} y={H-padB+14} textAnchor="middle" fill="#94a3b8" fontSize="10">{d.label.slice(0,6)}</text>
+                  <text x={x+barW/2} y={y-4} textAnchor="middle" fill="#fbbf24" fontSize="11" fontWeight="700">{d.val}</text>
+                </g>
+              );
+            })}
+            <text x={W/2} y={H-2} textAnchor="middle" fill="#64748b" fontSize="11">Heads of expenditure</text>
+            <text x={12} y={H/2} textAnchor="middle" fill="#64748b" fontSize="11" transform={`rotate(-90,12,${H/2})`}>₹ thousands</text>
+          </svg>
+        </div>
+        <div className="flex gap-2" style={{marginTop:4,flexWrap:'wrap',alignItems:'center'}}>
+          {data.map((d,i)=>(
+            <button key={i} className={'btn btn-sm '+(sel===i?'btn-orange':'btn-dark')} onClick={()=>{setSel(i);sound.playClick()}}>{d.label}</button>
+          ))}
+        </div>
+        <label className="text-sm font-bold" style={{marginTop:4}}>{data[sel].label}: {data[sel].val} (₹ {data[sel].val}000)</label>
+        <input type="range" min="0" max="10" step="1" value={data[sel].val} onChange={e=>update(sel,+e.target.value)}/>
+        <div className="def-box" style={{marginTop:3}}>
+          <div className="t">Definition</div>
+          <div className="b">A <strong className="orange">bar graph</strong> uses bars of uniform width and equal spacing. Heights show the values of the variable.</div>
+        </div>
+        <div className="tip-blue">Education + Rent are highest (5). Entertainment + Misc. are lowest (1).</div>
+      </div>
+    </div>
+  );
+}
+
+function HistUniformTab(){
+  // Table 12.2 weights
+  const classes=[
+    {lo:30.5,hi:35.5,f:9},{lo:35.5,hi:40.5,f:6},{lo:40.5,hi:45.5,f:15},
+    {lo:45.5,hi:50.5,f:3},{lo:50.5,hi:55.5,f:1},{lo:55.5,hi:60.5,f:2}
+  ];
+  const [showKink,setShowKink]=useState(true);
+  const maxF=15;
+  const W=400,H=210,padL=40,padB=40,padT=14,padR=14;
+  const chartW=W-padL-padR, chartH=H-padT-padB;
+  const xMin=showKink?28:30.5, xMax=60.5;
+  const xScale=v=>padL+((v-xMin)/(xMax-xMin))*chartW;
+  const yScale=f=>H-padB-(f/maxF)*chartH;
+  return (
+    <div className="h-full overflow-y-auto" style={{padding:3}}>
+      <div className="card" style={{marginBottom:3}}>
+        <h2>Histogram · uniform width</h2>
+        <p className="sub">Weights of 36 students (Table 12.2) — class size = 5 kg</p>
+      </div>
+      <div className="card">
+        <div style={{display:'flex',justifyContent:'center'}}>
+          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="fig">
+            <line x1={padL} y1={padT} x2={padL} y2={H-padB} stroke="#64748b" strokeWidth="2"/>
+            <line x1={padL} y1={H-padB} x2={W-padR} y2={H-padB} stroke="#64748b" strokeWidth="2"/>
+            {[0,5,10,15].map(u=>(
+              <g key={u}>
+                <line x1={padL-3} y1={yScale(u)} x2={padL} y2={yScale(u)} stroke="#64748b"/>
+                <text x={padL-6} y={yScale(u)+4} textAnchor="end" fill="#94a3b8" fontSize="11">{u}</text>
+              </g>
+            ))}
+            {showKink && (
+              <g>
+                <path d={`M${xScale(28)} ${H-padB} L${xScale(29.2)} ${H-padB-6} L${xScale(30)} ${H-padB}`} fill="none" stroke="#fbbf24" strokeWidth="2"/>
+                <text x={xScale(28.5)} y={H-padB+14} fill="#fbbf24" fontSize="10">kink</text>
+              </g>
+            )}
+            {classes.map((c,i)=>{
+              const x1=xScale(c.lo), x2=xScale(c.hi);
+              const y=yScale(c.f);
+              return (
+                <g key={i}>
+                  <rect x={x1} y={y} width={x2-x1} height={H-padB-y}
+                    fill={COLORS[i%COLORS.length]+'99'} stroke={COLORS[i%COLORS.length]} strokeWidth="1.5"/>
+                  <text x={(x1+x2)/2} y={y-4} textAnchor="middle" fill="#fbbf24" fontSize="12" fontWeight="700">{c.f}</text>
+                </g>
+              );
+            })}
+            {[30.5,35.5,40.5,45.5,50.5,55.5,60.5].map(v=>(
+              <text key={v} x={xScale(v)} y={H-padB+14} textAnchor="middle" fill="#94a3b8" fontSize="10">{v}</text>
+            ))}
+            <text x={W/2} y={H-2} textAnchor="middle" fill="#64748b" fontSize="11">Weight (kg)</text>
+            <text x={12} y={H/2} textAnchor="middle" fill="#64748b" fontSize="11" transform={`rotate(-90,12,${H/2})`}>Frequency</text>
+          </svg>
+        </div>
+        <button className={'btn btn-sm '+(showKink?'btn-orange':'btn-dark')} style={{marginTop:3}}
+          onClick={()=>{setShowKink(!showKink);sound.playClick()}}>{showKink?'Hide kink':'Show kink'}</button>
+        <div className="def-box" style={{marginTop:3}}>
+          <div className="t">Histogram</div>
+          <div className="b">For <strong className="orange">continuous</strong> class intervals. Bars have width = class size and <strong>no gaps</strong>. Height = frequency (when widths are equal).</div>
+        </div>
+        <div className="tip">Kink (break) on the x-axis shows that the scale does not start at 0.</div>
+      </div>
+    </div>
+  );
+}
+
+function HistVaryTab(){
+  // Example with unequal widths - marks
+  // intervals: 0-10 f=5, 10-20 f=10, 20-40 f=8 (width 20), 40-50 f=6, 50-70 f=4 (width 20)
+  const raw=[
+    {lo:0,hi:10,f:5},{lo:10,hi:20,f:10},{lo:20,hi:40,f:8},
+    {lo:40,hi:50,f:6},{lo:50,hi:70,f:4}
+  ];
+  const base=10; // standard width for density
+  const dens=raw.map(c=>({...c, d:(c.f/(c.hi-c.lo))*base}));
+  const [mode,setMode]=useState('dens'); // dens | wrong
+  const maxH=Math.max(...dens.map(c=>mode==='dens'?c.d:c.f),1);
+  const W=400,H=210,padL=40,padB=40,padT=14,padR=14;
+  const chartW=W-padL-padR, chartH=H-padT-padB;
+  const xMin=0, xMax=70;
+  const xScale=v=>padL+((v-xMin)/(xMax-xMin))*chartW;
+  const yScale=v=>H-padB-(v/maxH)*chartH;
+  return (
+    <div className="h-full overflow-y-auto" style={{padding:3}}>
+      <div className="card" style={{marginBottom:3}}>
+        <h2>Histogram · varying width</h2>
+        <p className="sub">Use <strong className="amber">frequency density</strong> so area ∝ frequency</p>
+        <div className="flex gap-2" style={{marginTop:3}}>
+          <button className={'btn btn-sm '+(mode==='dens'?'btn-orange':'btn-dark')} onClick={()=>{setMode('dens');sound.playClick()}}>Correct (density)</button>
+          <button className={'btn btn-sm '+(mode==='wrong'?'btn-orange':'btn-dark')} onClick={()=>{setMode('wrong');sound.playClick()}}>Wrong (raw f)</button>
+        </div>
+      </div>
+      <div className="card">
+        <div style={{display:'flex',justifyContent:'center'}}>
+          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="fig">
+            <line x1={padL} y1={padT} x2={padL} y2={H-padB} stroke="#64748b" strokeWidth="2"/>
+            <line x1={padL} y1={H-padB} x2={W-padR} y2={H-padB} stroke="#64748b" strokeWidth="2"/>
+            {dens.map((c,i)=>{
+              const x1=xScale(c.lo), x2=xScale(c.hi);
+              const hVal=mode==='dens'?c.d:c.f;
+              const y=yScale(hVal);
+              return (
+                <g key={i}>
+                  <rect x={x1} y={y} width={x2-x1} height={H-padB-y}
+                    fill={COLORS[i%COLORS.length]+'99'} stroke={COLORS[i%COLORS.length]} strokeWidth="1.5"/>
+                  <text x={(x1+x2)/2} y={y-4} textAnchor="middle" fill="#fbbf24" fontSize="11" fontWeight="700">
+                    {mode==='dens'?c.d.toFixed(1):c.f}
+                  </text>
+                </g>
+              );
+            })}
+            {[0,10,20,40,50,70].map(v=>(
+              <text key={v} x={xScale(v)} y={H-padB+14} textAnchor="middle" fill="#94a3b8" fontSize="10">{v}</text>
+            ))}
+            <text x={W/2} y={H-2} textAnchor="middle" fill="#64748b" fontSize="11">Marks</text>
+            <text x={12} y={H/2} textAnchor="middle" fill="#64748b" fontSize="10" transform={`rotate(-90,12,${H/2})`}>{mode==='dens'?'Density (per 10)':'Frequency'}</text>
+          </svg>
+        </div>
+        <div className="def-box" style={{marginTop:3}}>
+          <div className="t">Frequency density</div>
+          <div className="b"><strong className="amber">density = frequency ÷ class width</strong> (adjusted to a standard width). Then <strong>area of bar ∝ frequency</strong>.</div>
+        </div>
+        <div className={mode==='dens'?'tip-green':'tip'} style={{marginTop:3}}>
+          {mode==='dens'
+            ? 'Correct: wider classes are shorter so areas stay proportional to frequency.'
+            : 'Wrong: plotting raw frequency makes wider classes look taller than they should.'}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PolygonTab(){
+  const classes=[
+    {lo:30.5,hi:35.5,f:9},{lo:35.5,hi:40.5,f:6},{lo:40.5,hi:45.5,f:15},
+    {lo:45.5,hi:50.5,f:3},{lo:50.5,hi:55.5,f:1},{lo:55.5,hi:60.5,f:2}
+  ];
+  const [showHist,setShowHist]=useState(true);
+  const [showPoly,setShowPoly]=useState(true);
+  // midpoints + zero ends
+  const pts=[
+    {m:28,f:0},
+    ...classes.map(c=>({m:(c.lo+c.hi)/2,f:c.f})),
+    {m:63,f:0}
+  ];
+  const maxF=15;
+  const W=400,H=210,padL=40,padB=40,padT=14,padR=14;
+  const chartW=W-padL-padR, chartH=H-padT-padB;
+  const xMin=26, xMax=65;
+  const xScale=v=>padL+((v-xMin)/(xMax-xMin))*chartW;
+  const yScale=f=>H-padB-(f/maxF)*chartH;
+  const poly=pts.map(p=>`${xScale(p.m)},${yScale(p.f)}`).join(' ');
+  return (
+    <div className="h-full overflow-y-auto" style={{padding:3}}>
+      <div className="card" style={{marginBottom:3}}>
+        <h2>Frequency Polygon</h2>
+        <p className="sub">Join mid-points of histogram tops · close with zero-frequency classes</p>
+        <div className="flex gap-2" style={{marginTop:3}}>
+          <button className={'btn btn-sm '+(showHist?'btn-orange':'btn-dark')} onClick={()=>{setShowHist(!showHist);sound.playClick()}}>{showHist?'Hide hist':'Show hist'}</button>
+          <button className={'btn btn-sm '+(showPoly?'btn-orange':'btn-dark')} onClick={()=>{setShowPoly(!showPoly);sound.playClick()}}>{showPoly?'Hide polygon':'Show polygon'}</button>
+        </div>
+      </div>
+      <div className="card">
+        <div style={{display:'flex',justifyContent:'center'}}>
+          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="fig">
+            <line x1={padL} y1={padT} x2={padL} y2={H-padB} stroke="#64748b" strokeWidth="2"/>
+            <line x1={padL} y1={H-padB} x2={W-padR} y2={H-padB} stroke="#64748b" strokeWidth="2"/>
+            {showHist && classes.map((c,i)=>{
+              const x1=xScale(c.lo), x2=xScale(c.hi), y=yScale(c.f);
+              return <rect key={i} x={x1} y={y} width={x2-x1} height={H-padB-y}
+                fill="rgba(249,115,22,.25)" stroke="#fb923c" strokeWidth="1"/>;
+            })}
+            {showPoly && (
+              <g>
+                <polyline points={poly} fill="none" stroke="#34d399" strokeWidth="2.5"/>
+                {pts.map((p,i)=>(
+                  <circle key={i} cx={xScale(p.m)} cy={yScale(p.f)} r="5" fill="#fbbf24" stroke="#0f172a" strokeWidth="1"/>
+                ))}
+              </g>
+            )}
+            {[30.5,40.5,50.5,60.5].map(v=>(
+              <text key={v} x={xScale(v)} y={H-padB+14} textAnchor="middle" fill="#94a3b8" fontSize="10">{v}</text>
+            ))}
+            <text x={W/2} y={H-2} textAnchor="middle" fill="#64748b" fontSize="11">Weight (kg)</text>
+          </svg>
+        </div>
+        <div className="def-box" style={{marginTop:3}}>
+          <div className="t">Frequency polygon</div>
+          <div className="b">Line segments joining the mid-points of the tops of consecutive histogram bars. Zero-frequency classes at both ends make the <strong className="amber">area equal</strong> to the histogram.</div>
+        </div>
+        <div className="tip-blue">Mid-points: 33, 38, 43, 48, 53, 58 · ends at 28 & 63 with f = 0.</div>
+      </div>
+    </div>
+  );
+}
+
+function ExploreTab(){
+  const [vals,setVals]=useState([4,7,5,9,3,6]);
+  const labels=['A','B','C','D','E','F'];
+  const [type,setType]=useState('bar');
+  const maxV=Math.max(...vals,1);
+  const W=380,H=190,padL=36,padB=32,padT=14,padR=12;
+  const chartW=W-padL-padR, chartH=H-padT-padB;
+  const n=vals.length;
+  const gap=type==='bar'?8:0;
+  const barW=type==='bar'?(chartW-(n+1)*gap)/n:chartW/n;
+  const update=(i,v)=>{const nv=[...vals];nv[i]=Math.max(0,Math.min(15,+v||0));setVals(nv)};
+  // polygon points
+  const mids=vals.map((v,i)=>({x:padL+(i+0.5)*(chartW/n), y:H-padB-(v/Math.max(maxV,10))*chartH}));
+  const polyPts=[
+    `${padL},${H-padB}`,
+    ...mids.map(p=>`${p.x},${p.y}`),
+    `${padL+chartW},${H-padB}`
+  ].join(' ');
+  return (
+    <div className="h-full overflow-y-auto" style={{padding:3}}>
+      <div className="card" style={{marginBottom:3}}>
+        <h2>Explore · build a graph</h2>
+        <p className="sub">Change values · switch chart type</p>
+        <div className="flex gap-2" style={{marginTop:3}}>
+          {[['bar','Bar'],['hist','Histogram'],['poly','Polygon']].map(([k,l])=>(
+            <button key={k} className={'btn btn-sm '+(type===k?'btn-orange':'btn-dark')} onClick={()=>{setType(k);sound.playClick()}}>{l}</button>
+          ))}
+        </div>
+      </div>
+      <div className="card">
+        <div style={{display:'flex',justifyContent:'center'}}>
+          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="fig">
+            <line x1={padL} y1={padT} x2={padL} y2={H-padB} stroke="#64748b" strokeWidth="2"/>
+            <line x1={padL} y1={H-padB} x2={W-padR} y2={H-padB} stroke="#64748b" strokeWidth="2"/>
+            {type!=='poly' && vals.map((v,i)=>{
+              const x=type==='bar'?padL+gap+i*(barW+gap):padL+i*barW;
+              const h=(v/Math.max(maxV,10))*chartH;
+              return (
+                <rect key={i} x={x} y={H-padB-h} width={barW} height={h} rx={type==='bar'?3:0}
+                  fill={COLORS[i%COLORS.length]+'bb'} stroke={COLORS[i%COLORS.length]} strokeWidth="1.5"/>
+              );
+            })}
+            {type==='poly' && (
+              <g>
+                <polyline points={polyPts} fill="rgba(52,211,153,.15)" stroke="#34d399" strokeWidth="2.5"/>
+                {mids.map((p,i)=><circle key={i} cx={p.x} cy={p.y} r="5" fill="#fbbf24"/>)}
+              </g>
+            )}
+            {labels.map((l,i)=>(
+              <text key={l} x={padL+(i+0.5)*(chartW/n)} y={H-padB+14} textAnchor="middle" fill="#94a3b8" fontSize="12">{l}</text>
+            ))}
+          </svg>
+        </div>
+        <div className="grid grid-3" style={{gap:3,marginTop:4}}>
+          {vals.map((v,i)=>(
+            <div key={i} className="def-box" style={{margin:0}}>
+              <div className="t">{labels[i]} = {v}</div>
+              <input type="range" min="0" max="15" value={v} onChange={e=>update(i,+e.target.value)}/>
+            </div>
+          ))}
+        </div>
+        <div className="tip" style={{marginTop:3}}>Total = {vals.reduce((a,b)=>a+b,0)} · Max = {maxV}</div>
+      </div>
+    </div>
+  );
+}
+
+function QuizTab({ onQuizComplete, quizBest }){
+  const questions=[
+    {q:'A bar graph is best for…',opts:['Continuous data','Discrete categories','Time series only','Circles'],c:1,exp:'Bars of uniform width with equal gaps show discrete categories.'},
+    {q:'In a histogram, consecutive bars…',opts:['Have gaps','Touch each other','Overlap','Are circles'],c:1,exp:'No gaps — continuous class intervals.'},
+    {q:'Frequency density = …',opts:['f × width','f ÷ class width','f + width','width ÷ f'],c:1,exp:'density = frequency ÷ class width.'},
+    {q:'Why use frequency density for unequal class widths?',opts:['Looks prettier','Area ∝ frequency','Height = frequency','None'],c:1,exp:'So the area of each bar is proportional to frequency.'},
+    {q:'A frequency polygon is drawn by joining…',opts:['Bar bottoms','Class mid-points of tops','Origins','Random points'],c:1,exp:'Mid-points of the upper sides of histogram rectangles.'},
+    {q:'A kink on the axis means…',opts:['Error','Scale does not start at 0','Maximum value','Zero frequency'],c:1,exp:'Break in the axis when the first class does not start at zero.'},
+    {q:'Bar graphs have…',opts:['No gaps','Equal gaps between bars','Overlapping bars','Circles'],c:1,exp:'Equal spacing between bars of uniform width.'},
+    {q:'Closing a frequency polygon with zero-frequency classes makes…',opts:['Area larger','Area = histogram area','Area zero','None'],c:1,exp:'Area of polygon equals area of histogram.'},
+    {q:'Histogram is used for…',opts:['Names of months','Continuous grouped data','Favourite colours','None'],c:1,exp:'Continuous class intervals (e.g. weight in kg).'},
+    {q:'In equal-width histogram, height of bar represents…',opts:['Class mark','Frequency','Density only','Range'],c:1,exp:'When widths are equal, height = frequency.'},
+  ];
+  const [idx,setIdx]=useState(0),[score,setScore]=useState(0),[sel,setSel]=useState(null),[show,setShow]=useState(false),[done,setDone]=useState(false);
+  const q=questions[idx];
+  const submit=i=>{if(show)return;setSel(i);setShow(true);if(i===q.c){setScore(s=>s+1);sound.playSuccess()}else sound.playError()};
+  const next=()=>{if(idx+1<questions.length){setIdx(idx+1);setSel(null);setShow(false)}else setDone(true)};
+  if(done) return (
+    <div className="h-full flex items-center justify-center">
+      <div className="card" style={{maxWidth:300,textAlign:'center'}}>
+        <div style={{fontSize:26}}>🎉</div>
+        <h2>Quiz Complete</h2>
+        <p className="orange font-bold">Score: {score}/{questions.length}</p>
+        {quizBest>0 && <p className="text-sm slate">Best so far: <span className="orange font-bold">{Math.max(quizBest,score)}/10</span></p>}
+        <button className="btn btn-orange" style={{marginTop:5}} onClick={()=>{ if(onQuizComplete) onQuizComplete(score); setIdx(0);setScore(0);setSel(null);setShow(false);setDone(false); sound.playClick(); }}>Save & Retry</button>
+      </div>
+    </div>
+  );
+  return (
+    <div className="h-full flex items-center justify-center overflow-y-auto" style={{padding:3}}>
+      <div className="card" style={{maxWidth:470,width:'100%'}}>
+        <div className="flex justify-between text-sm slate"><span>Q {idx+1}/{questions.length}</span><span className="orange font-bold">Score: {score}</span></div>
+        <div style={{height:5,background:'#1e293b',borderRadius:3,margin:'4px 0',overflow:'hidden'}}>
+          <div style={{height:'100%',width:`${((idx+(show?1:0))/questions.length)*100}%`,background:'linear-gradient(90deg,#f97316,#fbbf24)'}}/>
+        </div>
+        <h2 style={{fontSize:'1.02rem',color:'#f8fafc'}}>{q.q}</h2>
+        <div style={{marginTop:5}}>
+          {q.opts.map((o,i)=>(
+            <button key={i} className={`quiz-opt ${show?(i===q.c?'correct':i===sel?'wrong':'disabled'):''}`} onClick={()=>submit(i)} disabled={show}>
+              <span style={{width:22,height:22,borderRadius:5,background:show&&i===q.c?'#10b981':show&&i===sel?'#ef4444':'#ea580c',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:900,fontSize:11,color:'#fff'}}>{String.fromCharCode(65+i)}</span>
+              {o}
+            </button>
+          ))}
+        </div>
+        {show && (
+          <div className={sel===q.c?'tip-green':'tip'} style={{marginTop:4}}>
+            <strong>{sel===q.c?'✅ Correct!':'❌ Not quite.'}</strong> {q.exp}
+            {sel!==q.c && <div className="green" style={{marginTop:1}}>Answer: {String.fromCharCode(65+q.c)}. {q.opts[q.c]}</div>}
+            <button className="btn btn-orange btn-sm" style={{marginTop:4}} onClick={next}>{idx+1<questions.length?'Next →':'Results'}</button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+const TABS=[
+  {id:'progress',label:'0. Progress',icon:'📊'},
+  {id:'over',label:'1. Overview',icon:'📖'},
+  {id:'bar',label:'2. Bar Graphs',icon:'📊'},
+  {id:'hist',label:'3. Histogram',icon:'▮'},
+  {id:'vary',label:'4. Varying Width',icon:'▭'},
+  {id:'poly',label:'5. Freq. Polygon',icon:'📈'},
+  {id:'exp',label:'6. Explore',icon:'🛠'},
+  {id:'quiz',label:'7. Quiz',icon:'❓'},
+];
+
+function App(){
+  const [tab,setTab]=useState('progress');
+  const [muted,setMuted]=useState(false);
+  const [isFs,setIsFs]=useState(false);
+  const [visited,setVisited]=useState({progress:true});
+  const [quizBest,setQuizBest]=useState(0);
+  const [quizAttempts,setQuizAttempts]=useState(0);
+  useEffect(()=>{sound.setMuted(muted)},[muted]);
+  useEffect(()=>{
+    const fn=()=>setIsFs(!!document.fullscreenElement);
+    document.addEventListener('fullscreenchange',fn);
+    return ()=>document.removeEventListener('fullscreenchange',fn);
+  },[]);
+  const toggleFs=()=>{
+    const el=document.querySelector('.simulation-container');
+    if(!document.fullscreenElement) el?.requestFullscreen?.();
+    else document.exitFullscreen?.();
+  };
+  const goTab=(id)=>{sound.playClick();setTab(id);setVisited(v=>({...v,[id]:true}));};
+  const onQuizComplete=(score)=>{setQuizAttempts(a=>a+1);setQuizBest(b=>Math.max(b,score));};
+  const content={progress:<ProgressDash visited={visited} quizBest={quizBest} quizAttempts={quizAttempts} onGoTab={goTab}/>,over:<OverviewTab/>,bar:<BarTab/>,hist:<HistUniformTab/>,vary:<HistVaryTab/>,poly:<PolygonTab/>,exp:<ExploreTab/>,quiz:<QuizTab onQuizComplete={onQuizComplete} quizBest={quizBest}/>};
+  return (
+    <div className="h-full flex flex-col">
+      <header className="glass flex justify-between items-center flex-shrink-0" style={{padding:'7px 11px',borderBottom:'1px solid rgba(255,255,255,.1)'}}>
+        <div className="flex items-center gap-2">
+          {LOGO ? <img src={LOGO} alt="APMF" style={{width:48,height:48,borderRadius:10,objectFit:'contain',background:'transparent'}}/> :
+            <div style={{width:44,height:44,borderRadius:9,background:'#0f172a',display:'flex',alignItems:'center',justifyContent:'center',border:'1px solid #334155'}}>
+              <span style={{fontSize:10,fontWeight:900,color:'#f97316'}}>APMF</span>
+            </div>}
+          <div>
+            <h1 style={{fontSize:16,fontWeight:900,color:'#fff',margin:0}}>Statistics</h1>
+            <p style={{fontSize:11,color:'#94a3b8',margin:0}}>NCERT Class 9 • Chapter 12</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <div style={{textAlign:'right',lineHeight:1.2}}>
+            <div style={{fontSize:11,fontWeight:700,color:'#fb923c'}}>Andhra Pradesh Mathematics Forum</div>
+            <div style={{fontSize:12,fontWeight:700,color:'#fff'}}>Gangalapudi Bhasker Reddy</div>
+          </div>
+          <div className="flex gap-1" style={{background:'#1e293b',padding:4,borderRadius:9,border:'1px solid #334155'}}>
+            <button className="btn btn-dark btn-sm" onClick={()=>{sound.playClick();setMuted(!muted)}}>{muted?'🔇':'🔊'}</button>
+            <button className="btn btn-dark btn-sm" onClick={()=>{sound.playClick();toggleFs()}}>{isFs?'🗗':'⛶'}</button>
+          </div>
+        </div>
+      </header>
+      <div className="tab-bar">
+        {TABS.map(t=>(
+          <button key={t.id} className={`tab ${tab===t.id?'on':''}`} onClick={()=>goTab(t.id)}>
+            <span>{t.icon}</span><span>{t.label}</span>
+          </button>
+        ))}
+      </div>
+      <main className="flex-1 overflow-hidden" style={{padding:2}}><div className="h-full fade">{content[tab]}</div></main>
+      <footer className="glass flex justify-between items-center flex-shrink-0" style={{padding:'3px 11px',fontSize:11,color:'#94a3b8',borderTop:'1px solid rgba(255,255,255,.1)'}}>
+        <span>NCERT Class 9 • Ch 12 · Statistics</span>
+        <span>APMF · <strong style={{color:'#e2e8f0'}}>Gangalapudi Bhasker Reddy</strong></span>
+      </footer>
+    </div>
+  );
+}
+
+try{ReactDOM.createRoot(document.getElementById('root')).render(<App/>)}
+catch(err){document.getElementById('root').innerHTML='<div style="padding:16px;color:#fca5a5"><pre>'+String(err)+'</pre></div>'}
+</script>
+</body>
+</html>
